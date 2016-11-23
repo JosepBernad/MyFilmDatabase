@@ -5,7 +5,7 @@ package com.example.pr_idi.mydatabaseexample;
  * Created by pr_idi on 10/11/16.
  */
 
-/**Sumadre */
+/**Sumadre vhkghukg */
 
 public class Film {
 
