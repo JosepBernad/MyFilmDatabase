@@ -4,6 +4,9 @@ package com.example.pr_idi.mydatabaseexample;
  * Film
  * Created by pr_idi on 10/11/16.
  */
+
+/**Sumaaaaaadre */
+
 public class Film {
 
     // Basic film data manipulation class
