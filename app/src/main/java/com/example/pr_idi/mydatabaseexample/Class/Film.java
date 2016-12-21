@@ -1,11 +1,10 @@
-package com.example.pr_idi.mydatabaseexample;
+package com.example.pr_idi.mydatabaseexample.Class;
 
 /**
  * Film
  * Created by pr_idi on 10/11/16.
  */
 
-/**Sumadre vhkghukg */
 
 public class Film {
 
@@ -22,6 +21,8 @@ public class Film {
 
     private String comment;
 
+
+    /** ID */
     public long getId() {
         return id;
     }
@@ -30,6 +31,8 @@ public class Film {
         this.id = id;
     }
 
+
+    /** Title */
     public String getTitle() {
         return title;
     }
@@ -38,6 +41,8 @@ public class Film {
         this.title = title;
     }
 
+
+    /** Director */
     public String getDirector() {
         return director;
     }
@@ -46,6 +51,8 @@ public class Film {
         this.director = director;
     }
 
+
+    /** Country */
     public String getCountry() {
         return country;
     }
@@ -54,6 +61,8 @@ public class Film {
         this.country = country;
     }
 
+
+    /** Year */
     public int getYear() {
         return year;
     }
@@ -62,6 +71,8 @@ public class Film {
         this.year = year;
     }
 
+
+    /** Protagonist */
     public String getProtagonist() {
         return protagonist;
     }
@@ -70,6 +81,8 @@ public class Film {
         this.protagonist = protagonist;
     }
 
+
+    /** Critics Rate */
     public int getCritics_rate() {
         return critics_rate;
     }
@@ -77,6 +90,8 @@ public class Film {
     public void setCritics_rate(int critics_rate) {
         this.critics_rate = critics_rate;
     }
+
+
 
     // Will be used by the ArrayAdapter in the ListView
     @Override

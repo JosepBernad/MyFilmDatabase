@@ -1,4 +1,4 @@
-package com.example.pr_idi.mydatabaseexample;
+package com.example.pr_idi.mydatabaseexample.Class;
 
 /**
  * FilmData
@@ -14,6 +14,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.pr_idi.mydatabaseexample.MySQLiteHelper;
+
 public class FilmData {
 
     // Database fields
@@ -22,7 +24,9 @@ public class FilmData {
 
     // Here we only select Title and Director, must select the appropriate columns
     private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
-            MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_DIRECTOR};
+            MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_DIRECTOR,
+            MySQLiteHelper.COLUMN_COUNTRY, MySQLiteHelper.COLUMN_YEAR_RELEASE,
+            MySQLiteHelper.COLUMN_PROTAGONIST, MySQLiteHelper.COLUMN_CRITICS_RATE};
 
     public FilmData(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -36,20 +40,21 @@ public class FilmData {
         dbHelper.close();
     }
 
-    public Film createFilm(String title, String director) {
+    public Film createFilm(String title, String director, String country, int year, String protagonist, int rate)
+    {
         ContentValues values = new ContentValues();
         Log.d("Creating", "Creating " + title + " " + director);
-
         // Add data: Note that this method only provides title and director
+
         // Must modify the method to add the full data
         values.put(MySQLiteHelper.COLUMN_TITLE, title);
         values.put(MySQLiteHelper.COLUMN_DIRECTOR, director);
 
-        // Invented data
-        values.put(MySQLiteHelper.COLUMN_COUNTRY, "Catalonia");
-        values.put(MySQLiteHelper.COLUMN_YEAR_RELEASE, 2014);
-        values.put(MySQLiteHelper.COLUMN_PROTAGONIST, "Do not know");
-        values.put(MySQLiteHelper.COLUMN_CRITICS_RATE, 5);
+        // Josep data
+        values.put(MySQLiteHelper.COLUMN_COUNTRY, country);
+        values.put(MySQLiteHelper.COLUMN_YEAR_RELEASE, year);
+        values.put(MySQLiteHelper.COLUMN_PROTAGONIST, protagonist);
+        values.put(MySQLiteHelper.COLUMN_CRITICS_RATE, rate);
 
         // Actual insertion of the data using the values variable
         long insertId = database.insert(MySQLiteHelper.TABLE_FILMS, null,
@@ -103,6 +108,10 @@ public class FilmData {
         film.setId(cursor.getLong(0));
         film.setTitle(cursor.getString(1));
         film.setDirector(cursor.getString(2));
+        film.setCountry(cursor.getString(3));
+        film.setYear(cursor.getInt(4));
+        film.setProtagonist(cursor.getString(5));
+        film.setCritics_rate(cursor.getInt(6));
         return film;
     }
 }

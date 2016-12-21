@@ -1,33 +1,70 @@
 package com.example.pr_idi.mydatabaseexample;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-public class MainActivity extends ListActivity {
+import com.example.pr_idi.mydatabaseexample.Adapters.filmsAdapter;
+import com.example.pr_idi.mydatabaseexample.Class.Film;
+import com.example.pr_idi.mydatabaseexample.Class.FilmData;
+
+
+public class MainActivity extends ListActivity
+{
     private FilmData filmData;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter adapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+
+
         filmData = new FilmData(this);
         filmData.open();
 
-        List<Film> values = filmData.getAllFilms();
+        ArrayList<Film> filmArray = new ArrayList<>(filmData.getAllFilms());
 
+        /**
+        Film film = filmData.createFilm("Pítulo","Director","Country",9999,"Protagonist",10);
+
+        filmArray.add(film); */
+
+
+
+        /**
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
         ArrayAdapter<Film> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, values);
-        setListAdapter(adapter);
+        setListAdapter(adapter); */
+
+
+        recyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
+        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new filmsAdapter(filmArray);
+        recyclerView.setAdapter(adapter);
+
     }
+
+
 
     // Will be called via the onClick attribute
     // of the buttons in main.xml
@@ -40,7 +77,7 @@ public class MainActivity extends ListActivity {
                 String[] newFilm = new String[] { "Blade Runner", "Ridley Scott", "Rocky Horror Picture Show", "Jim Sharman", "The Godfather", "Francis Ford Coppola", "Toy Story", "John Lasseter" };
                 int nextInt = new Random().nextInt(4);
                 // save the new film to the database
-                film = filmData.createFilm(newFilm[nextInt*2], newFilm[nextInt*2 + 1]);
+                film = filmData.createFilm(newFilm[nextInt*2], newFilm[nextInt*2 + 1],"Country",9999,"Protagonist",10);
                 adapter.add(film);
                 break;
             case R.id.delete:
@@ -48,6 +85,7 @@ public class MainActivity extends ListActivity {
                     film = (Film) getListAdapter().getItem(0);
                     filmData.deleteFilm(film);
                     adapter.remove(film);
+
                 }
                 break;
         }
@@ -55,7 +93,8 @@ public class MainActivity extends ListActivity {
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         filmData.open();
         super.onResume();
     }
