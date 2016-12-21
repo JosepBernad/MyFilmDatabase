@@ -7,21 +7,27 @@ import java.util.List;
 import java.util.Random;
 
 import android.app.ListActivity;
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.pr_idi.mydatabaseexample.Adapters.filmsAdapter;
 import com.example.pr_idi.mydatabaseexample.Class.Film;
 import com.example.pr_idi.mydatabaseexample.Class.FilmData;
 
 
-public class MainActivity extends ListActivity
+
+public class MainActivity extends ListActivity implements View.OnClickListener
 {
     private FilmData filmData;
+    private ArrayList<Film> filmArray;
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -33,18 +39,20 @@ public class MainActivity extends ListActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        /** (+) Add button */
+        ImageButton addButton = (ImageButton)findViewById(R.id.addButton);
+        addButton.setOnClickListener(this);
 
 
         filmData = new FilmData(this);
         filmData.open();
 
-        ArrayList<Film> filmArray = new ArrayList<>(filmData.getAllFilms());
+        filmArray = new ArrayList<>(filmData.getAllFilms());
 
         /**
         Film film = filmData.createFilm("Pítulo","Director","Country",9999,"Protagonist",10);
 
         filmArray.add(film); */
-
 
 
         /**
@@ -62,6 +70,7 @@ public class MainActivity extends ListActivity
         adapter = new filmsAdapter(filmArray);
         recyclerView.setAdapter(adapter);
 
+
     }
 
 
@@ -73,6 +82,16 @@ public class MainActivity extends ListActivity
         ArrayAdapter<Film> adapter = (ArrayAdapter<Film>) getListAdapter();
         Film film;
         switch (view.getId()) {
+            case R.id.addButton:
+
+                filmData.close();
+                Intent i = new Intent(MainActivity.this, NewFilmActivity.class);
+                startActivity(i);
+
+                break;
+
+
+
             case R.id.add:
                 String[] newFilm = new String[] { "Blade Runner", "Ridley Scott", "Rocky Horror Picture Show", "Jim Sharman", "The Godfather", "Francis Ford Coppola", "Toy Story", "John Lasseter" };
                 int nextInt = new Random().nextInt(4);
@@ -89,7 +108,7 @@ public class MainActivity extends ListActivity
                 }
                 break;
         }
-        adapter.notifyDataSetChanged();
+        /**adapter.notifyDataSetChanged();*/
     }
 
     @Override
@@ -97,6 +116,13 @@ public class MainActivity extends ListActivity
     {
         filmData.open();
         super.onResume();
+        filmArray = new ArrayList<>(filmData.getAllFilms());
+        recyclerView = (RecyclerView)findViewById(R.id.my_recycler_view);
+        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new filmsAdapter(filmArray);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
