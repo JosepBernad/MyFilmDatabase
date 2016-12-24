@@ -10,6 +10,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -40,7 +41,7 @@ public class MainActivity extends ListActivity implements View.OnClickListener
         setContentView(R.layout.main);
 
         /** (+) Add button */
-        ImageButton addButton = (ImageButton)findViewById(R.id.addButton);
+        FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.addButton);
         addButton.setOnClickListener(this);
 
 
