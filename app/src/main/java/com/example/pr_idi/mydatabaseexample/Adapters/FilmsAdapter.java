@@ -15,11 +15,11 @@ import java.util.ArrayList;
  * Created by SigmundFreud on 20/12/16.
  */
 
-public class filmsAdapter extends RecyclerView.Adapter<filmsAdapter.filmViewHolder>
+public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.filmViewHolder>
 {
     private ArrayList<Film> filmArray;
 
-    public filmsAdapter(ArrayList<Film> filmArray) {
+    public FilmsAdapter(ArrayList<Film> filmArray) {
         this.filmArray = filmArray;
     }
 
