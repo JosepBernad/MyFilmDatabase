@@ -68,6 +68,20 @@
             android:visibility="gone"/>
         -->
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/searchButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom|right"
+            android:clickable="true"
+            android:src="@drawable/ic_action_search_button"
+            app:backgroundTint="#56af00"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="100dp"
+            android:layout_marginEnd="24dp"
+            />
+
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addButton"
