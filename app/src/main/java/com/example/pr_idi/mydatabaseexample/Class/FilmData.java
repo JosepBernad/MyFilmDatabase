@@ -90,7 +90,7 @@ public class FilmData {
         List<Film> comments = new ArrayList<>();
 
         Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS,
-                allColumns, null, null, null, null, null);
+                allColumns, null, null, null, null,MySQLiteHelper.COLUMN_TITLE);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -98,6 +98,8 @@ public class FilmData {
             comments.add(comment);
             cursor.moveToNext();
         }
+
+
         // make sure to close the cursor
         cursor.close();
         return comments;
@@ -114,4 +116,6 @@ public class FilmData {
         film.setCritics_rate(cursor.getInt(6));
         return film;
     }
+
+
 }
