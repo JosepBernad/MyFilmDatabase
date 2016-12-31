@@ -69,6 +69,19 @@
         -->
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/sortButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom|right"
+            android:clickable="true"
+            app:backgroundTint="#ff0000"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="180dp"
+            android:layout_marginEnd="24dp"
+            />
+
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/searchButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
