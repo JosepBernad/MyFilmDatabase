@@ -37,6 +37,7 @@ import com.example.pr_idi.mydatabaseexample.Adapters.FilmsAdapter;
 import com.example.pr_idi.mydatabaseexample.Class.Film;
 import com.example.pr_idi.mydatabaseexample.Class.FilmData;
 
+import static com.example.pr_idi.mydatabaseexample.R.layout.main;
 
 
 //public class MainActivity extends ListActivity implements View.OnClickListener
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
 
-    private String[] mPlanetTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
