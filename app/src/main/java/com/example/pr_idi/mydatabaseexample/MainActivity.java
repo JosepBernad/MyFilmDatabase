@@ -12,8 +12,10 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,7 +48,8 @@ public class MainActivity extends ListActivity implements View.OnClickListener
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -59,11 +62,6 @@ public class MainActivity extends ListActivity implements View.OnClickListener
         filmData.open();
 
         filmArray = new ArrayList<>(filmData.getAllFilms());
-
-        /**
-        Film film = filmData.createFilm("Pítulo","Director","Country",9999,"Protagonist",10);
-
-        filmArray.add(film); */
 
 
         /**
@@ -80,6 +78,7 @@ public class MainActivity extends ListActivity implements View.OnClickListener
 
         adapter = new FilmsAdapter(filmArray);
         recyclerView.setAdapter(adapter);
+
 
         ////// Navigation Drawer/////////
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -108,14 +107,16 @@ public class MainActivity extends ListActivity implements View.OnClickListener
         });
 
         /////End Navigaion Drawer//////
+
     }
 
 
 
     // Will be called via the onClick attribute
     // of the buttons in main.xml
+
     public void onClick(View view) {
-        @SuppressWarnings("unchecked")
+
         ArrayAdapter<Film> adapter = (ArrayAdapter<Film>) getListAdapter();
         Film film;
         switch (view.getId()) {
@@ -126,26 +127,8 @@ public class MainActivity extends ListActivity implements View.OnClickListener
                 startActivity(i);
 
                 break;
-
-
-
-            case R.id.add:
-                String[] newFilm = new String[] { "Blade Runner", "Ridley Scott", "Rocky Horror Picture Show", "Jim Sharman", "The Godfather", "Francis Ford Coppola", "Toy Story", "John Lasseter" };
-                int nextInt = new Random().nextInt(4);
-                // save the new film to the database
-                film = filmData.createFilm(newFilm[nextInt*2], newFilm[nextInt*2 + 1],"Country",9999,"Protagonist",10);
-                adapter.add(film);
-                break;
-            case R.id.delete:
-                if (getListAdapter().getCount() > 0) {
-                    film = (Film) getListAdapter().getItem(0);
-                    filmData.deleteFilm(film);
-                    adapter.remove(film);
-
-                }
-                break;
         }
-        /**adapter.notifyDataSetChanged();*/
+
     }
 
     @Override
@@ -173,4 +156,5 @@ public class MainActivity extends ListActivity implements View.OnClickListener
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, filmArray);
         mDrawerList.setAdapter(mAdapter);
     }
+
 }
