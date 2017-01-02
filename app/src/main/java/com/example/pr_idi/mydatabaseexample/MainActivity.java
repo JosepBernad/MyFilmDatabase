@@ -18,8 +18,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,7 +37,6 @@ import com.example.pr_idi.mydatabaseexample.Adapters.FilmsAdapter;
 import com.example.pr_idi.mydatabaseexample.Class.Film;
 import com.example.pr_idi.mydatabaseexample.Class.FilmData;
 
-import static com.example.pr_idi.mydatabaseexample.R.layout.main;
 
 
 //public class MainActivity extends ListActivity implements View.OnClickListener
@@ -58,17 +59,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
 
-    /*
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.layout.film_row, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(main);
         mainListView = (ListView) findViewById(R.id.my_list);
@@ -82,11 +76,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         filmData.open();
 
         filmArray = new ArrayList<>(filmData.getAllFilms());
-
-        /**
-        Film film = filmData.createFilm("Pítulo","Director","Country",9999,"Protagonist",10);
-
-        filmArray.add(film); */
 
 
         /**
@@ -104,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new FilmsAdapter(filmArray);
         recyclerView.setAdapter(adapter);
 
+
         ////// Navigation Drawer/////////
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -116,12 +106,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setupDrawer();
         /////End Navigaion Drawer//////
+
     }
 
 
 
     // Will be called via the onClick attribute
     // of the buttons in main.xml
+
     public void onClick(View view) {
         @SuppressWarnings("unchecked")
         ArrayAdapter<Film> adapter = (ArrayAdapter<Film>) mainListView.getAdapter();
@@ -134,26 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
 
                 break;
-
-
-
-            case R.id.add:
-                String[] newFilm = new String[] { "Blade Runner", "Ridley Scott", "Rocky Horror Picture Show", "Jim Sharman", "The Godfather", "Francis Ford Coppola", "Toy Story", "John Lasseter" };
-                int nextInt = new Random().nextInt(4);
-                // save the new film to the database
-                film = filmData.createFilm(newFilm[nextInt*2], newFilm[nextInt*2 + 1],"Country",9999,"Protagonist",10);
-                adapter.add(film);
-                break;
-            case R.id.delete:
-                if (mainListView.getAdapter().getCount() > 0) {
-                    film = (Film) mainListView.getAdapter().getItem(0);
-                    filmData.deleteFilm(film);
-                    adapter.remove(film);
-
-                }
-                break;
         }
-        /**adapter.notifyDataSetChanged();*/
+
     }
 
     @Override
@@ -254,4 +228,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
 }
