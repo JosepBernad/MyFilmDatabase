@@ -2,10 +2,13 @@ package com.example.pr_idi.mydatabaseexample;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +31,7 @@ import org.w3c.dom.Text;
  * Created by SigmundFreud on 21/12/16.
  */
 
-public class NewFilmActivity extends Activity {
+public class NewFilmActivity extends AppCompatActivity {
     /**
      * setContentView(R.layout.add_film);
      */
@@ -48,7 +51,13 @@ public class NewFilmActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        //Per cambiar el titol de la action bar
+        getSupportActionBar().setTitle("New Film");
+        /* Aixo seria per afegir el boto per tirar enrere o obrir el navigation drawer
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        */
         setContentView(R.layout.add_film_view);
 
         listenerForRatingBar();

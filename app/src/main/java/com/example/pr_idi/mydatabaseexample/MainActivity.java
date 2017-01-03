@@ -2,35 +2,21 @@ package com.example.pr_idi.mydatabaseexample;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 import android.content.res.Configuration;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.app.ListActivity;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.Adapters.FilmsAdapter;
@@ -40,7 +26,6 @@ import com.example.pr_idi.mydatabaseexample.Class.FilmData;
 import static com.example.pr_idi.mydatabaseexample.R.layout.main;
 
 
-//public class MainActivity extends ListActivity implements View.OnClickListener
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
     public ListView mainListView;
@@ -66,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(main);
         mainListView = (ListView) findViewById(R.id.my_list);
+        getSupportActionBar().setTitle("My Films");
 
         /** (+) Add button */
         FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.addButton);
@@ -95,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         ////// Navigation Drawer/////////
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -105,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDrawerItems();
 
         setupDrawer();
+
         /////End Navigaion Drawer//////
 
     }
@@ -160,10 +148,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0: //cas Add Film
-                        Toast.makeText(MainActivity.this, "No se que he de posar aqui jaja", Toast.LENGTH_SHORT).show();
+                        filmData.close();
+                        Intent i = new Intent(MainActivity.this, NewFilmActivity.class);
+                        startActivity(i);
                         break;
                     case 1: //cas Delete Film
-                        Toast.makeText(MainActivity.this, "Aqui tampoc se que s'ha de posar", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "No se borrar pelis OK?", Toast.LENGTH_SHORT).show();
                         break;
                     case 2: //cas Help
                         Toast.makeText(MainActivity.this, "Help encara s'ha de implementar XD", Toast.LENGTH_SHORT).show();
@@ -190,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             /** Es crida quan el drawer esta completament tancat */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mActivityTitle);
+                getSupportActionBar().setTitle("My Films");
                 invalidateOptionsMenu();
             }
         };
@@ -228,5 +218,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
 
 }
