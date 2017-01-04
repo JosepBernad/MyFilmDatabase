@@ -1,6 +1,20 @@
 package com.example.pr_idi.mydatabaseexample;
 
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+
+import android.content.DialogInterface;
+import android.content.res.Configuration;
+import android.support.v4.view.GravityCompat;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+>>>>>>> f75807304ab74710ffc8851fd3a69ad68af5a4bc
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -81,6 +95,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         filmArray = new ArrayList<>(filmData.getAllFilms());
         sortArrayList();
 
+        /**  Search button */
+        FloatingActionButton searchButton = (FloatingActionButton) findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(this);
+
 
         /**
          // use the SimpleCursorAdapter to show the
@@ -147,6 +165,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
+<<<<<<< HEAD
+=======
+            case R.id.searchButton:
+                createRadioListDialog().show();
+>>>>>>> f75807304ab74710ffc8851fd3a69ad68af5a4bc
         }
 
     }
@@ -252,6 +275,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (this.mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public AlertDialog createRadioListDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        final EditText input = new EditText(MainActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+
+        final CharSequence[] items = new CharSequence[3];
+
+        items[0] = "By Film";
+        items[1] = "By Actor";
+        items[2] = "By Director";
+
+        builder.setView(input);
+
+        builder.setTitle("Search")
+                //.setView(input)
+                /*
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //listener.onPossitiveButtonClick();
+                                Toast.makeText(
+                                        MainActivity.this,
+                                        "Search" + items[which],
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        })
+                */
+                .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(
+                                MainActivity.this,
+                                "S'ha seleccionat: " + items[which],
+                                Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                });
+        return builder.create();
+    }
 
 
     void sortArrayList()
