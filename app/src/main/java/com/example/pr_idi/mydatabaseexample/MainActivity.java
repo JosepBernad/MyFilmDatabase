@@ -1,8 +1,6 @@
 package com.example.pr_idi.mydatabaseexample;
 
 
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
 
 import android.content.DialogInterface;
@@ -14,7 +12,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
->>>>>>> f75807304ab74710ffc8851fd3a69ad68af5a4bc
+
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -46,6 +44,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Vector;
 
 import static com.example.pr_idi.mydatabaseexample.R.layout.main;
 
@@ -68,7 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
 
-    private String sortBy = "director";
+    private String sortBy = "title";
+
+    private String[] var;
+    private int anInt = 0;
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -84,10 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mainListView = (ListView) findViewById(R.id.my_list);
         getSupportActionBar().setTitle("My Films");
 
-        /** (+) Add button */
-        FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.addButton);
-        addButton.setOnClickListener(this);
-
 
         filmData = new FilmData(this);
         filmData.open();
@@ -95,10 +94,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         filmArray = new ArrayList<>(filmData.getAllFilms());
         sortArrayList();
 
+
+        /** (+) Add button */
+        FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.addButton);
+        addButton.setOnClickListener(this);
+
         /**  Search button */
         FloatingActionButton searchButton = (FloatingActionButton) findViewById(R.id.searchButton);
         searchButton.setOnClickListener(this);
 
+        /** Sort button */
+        FloatingActionButton sortButton = (FloatingActionButton) findViewById(R.id.sortButton);
+        sortButton.setOnClickListener(this);
+
+        var = new String[3];
+        var[0] = "title";
+        var[1] = "director";
+        var[2] = "year";
 
         /**
          // use the SimpleCursorAdapter to show the
@@ -131,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         /////End Navigaion Drawer//////
 
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -152,24 +165,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
 
+
             case R.id.sortButton:
-                sortBy = "year";
+
+                sortBy = var[anInt];
+
                 sortArrayList();
+
+                ++anInt;
+                if (anInt == 3)
+                    anInt = 0;
+
 
                 recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
                 layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 recyclerView.setLayoutManager(layoutManager);
 
-                //adapter = new FilmsAdapter(filmArray);
-                //recyclerView.setAdapter(adapter);
+                FilmsAdapter adapter1 = new FilmsAdapter(filmArray);
+                recyclerView.setAdapter(adapter1);
 
                 break;
 
-<<<<<<< HEAD
-=======
             case R.id.searchButton:
                 createRadioListDialog().show();
->>>>>>> f75807304ab74710ffc8851fd3a69ad68af5a4bc
         }
 
     }
@@ -177,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+
         filmData.open();
         filmArray = new ArrayList<>(filmData.getAllFilms());
         sortArrayList();
@@ -184,8 +203,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        //adapter = new FilmsAdapter(filmArray);
-        //recyclerView.setAdapter(adapter);
+        adapter = new FilmsAdapter(filmArray);
+        recyclerView.setAdapter(adapter);
+
     }
 
     @Override
@@ -336,7 +356,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Collections.sort(filmArray, new Comparator<Film>(){
             public int compare(Film film1, Film film2)
             {
-                // ## Ascending order
+
+
                 switch (sortBy)
                 {
                     case "title":

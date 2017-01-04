@@ -128,11 +128,11 @@ public class NewFilmActivity extends AppCompatActivity {
                     Film film;
                     film = filmData.createFilm
                             (
-                                    capitalizeFirstLetter(titleText.getText().toString().trim()),
-                                    capitalizeFirstLetter(directorText.getText().toString().trim()),
-                                    capitalizeFirstLetter(countryText.getText().toString().trim()),
+                                    titleText.getText().toString().trim(),
+                                    directorText.getText().toString().trim(),
+                                    countryText.getText().toString().trim(),
                                     Integer.parseInt(yearText.getText().toString()),
-                                    capitalizeFirstLetter(protagonstText.getText().toString().trim()),
+                                    protagonstText.getText().toString().trim(),
                                     Integer.parseInt(ratingText.getText().toString())
                             );
                     filmData.close();
