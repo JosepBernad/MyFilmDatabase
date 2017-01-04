@@ -3,9 +3,14 @@ package com.example.pr_idi.mydatabaseexample;
 
 import java.util.ArrayList;
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.content.Intent;
 import android.os.Bundle;
@@ -63,6 +68,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         filmArray = new ArrayList<>(filmData.getAllFilms());
 
+        /**  Search button */
+        FloatingActionButton searchButton = (FloatingActionButton) findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(this);
+
 
         /**
         // use the SimpleCursorAdapter to show the
@@ -108,12 +117,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Film film;
         switch (view.getId()) {
             case R.id.addButton:
-
                 filmData.close();
                 Intent i = new Intent(MainActivity.this, NewFilmActivity.class);
                 startActivity(i);
 
                 break;
+
+            case R.id.searchButton:
+                createRadioListDialog().show();
         }
 
     }
@@ -219,5 +230,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (this.mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public AlertDialog createRadioListDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        final EditText input = new EditText(MainActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+
+        final CharSequence[] items = new CharSequence[3];
+
+        items[0] = "By Film";
+        items[1] = "By Actor";
+        items[2] = "By Director";
+
+        builder.setView(input);
+
+        builder.setTitle("Search")
+                //.setView(input)
+                /*
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //listener.onPossitiveButtonClick();
+                                Toast.makeText(
+                                        MainActivity.this,
+                                        "Search" + items[which],
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        })
+                */
+                .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(
+                                MainActivity.this,
+                                "S'ha seleccionat: " + items[which],
+                                Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                });
+        return builder.create();
+    }
 
 }
