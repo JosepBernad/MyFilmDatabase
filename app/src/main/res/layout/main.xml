@@ -14,20 +14,50 @@
         android:orientation="vertical">
 
 
-        <ListView
-            android:id="@+id/my_list"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:layout_height="match_parent">
 
+            <ListView
+                android:id="@+id/my_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/my_recycler_view"
-            android:scrollbars="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/my_list">
+
+                <!-- Text que cercar -->
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="Type something"
+                    android:ems="10"
+                    android:id="@+id/searchText"
+                    android:layout_weight="1.70" />
+
+                <!-- Botó desplegable (o algo) per triar què busques -->
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_action_name"
+                    android:id="@+id/searchByButton" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/my_recycler_view"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/linearLayout" />
+        </LinearLayout>
 
 
         <android.support.design.widget.FloatingActionButton
