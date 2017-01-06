@@ -26,6 +26,8 @@
                 android:visibility="gone"/>
 
             <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,6 +35,7 @@
 
                 <!-- Text que cercar -->
                 <EditText
+                    android:windowSoftInputMode="stateUnchanged"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -42,11 +45,13 @@
                     android:layout_weight="1.70" />
 
                 <!-- Botó desplegable (o algo) per triar què busques -->
-                <ImageButton
+                <Spinner
+                    android:id="@+id/my_spinner"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/ic_action_name"
-                    android:id="@+id/searchByButton" />
+                    android:background="@drawable/ic_action_name"
+                    />
 
             </LinearLayout>
 
@@ -70,10 +75,10 @@
             app:backgroundTint="#ff0000"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginBottom="170dp"
+            android:layout_marginBottom="100dp"
             android:layout_marginEnd="24dp"
             />
-
+        <!--
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/searchButton"
             android:layout_width="50dp"
@@ -87,7 +92,7 @@
             android:layout_marginBottom="100dp"
             android:layout_marginEnd="24dp"
             />
-
+            -->
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addButton"

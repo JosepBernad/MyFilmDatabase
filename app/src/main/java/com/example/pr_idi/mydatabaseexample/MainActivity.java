@@ -8,8 +8,11 @@ import android.content.res.Configuration;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -29,6 +32,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.Adapters.FilmsAdapter;
@@ -67,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
 
+    private TextWatcher filterTextWatcher;
+
     private String sortBy = "title";
 
     private String[] var;
@@ -99,13 +106,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.addButton);
         addButton.setOnClickListener(this);
 
-        /**  Search button */
-        FloatingActionButton searchButton = (FloatingActionButton) findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(this);
 
         /** Sort button */
         FloatingActionButton sortButton = (FloatingActionButton) findViewById(R.id.sortButton);
         sortButton.setOnClickListener(this);
+
+        /** Search by spinner */
+        setupSpinner();
 
         var = new String[3];
         var[0] = "title";
@@ -186,8 +193,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
 
-            case R.id.searchButton:
-                createRadioListDialog().show();
         }
 
     }
@@ -304,52 +309,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public AlertDialog createRadioListDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        final EditText input = new EditText(MainActivity.this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        input.setLayoutParams(lp);
-
-        final CharSequence[] items = new CharSequence[3];
-
-        items[0] = "By Film";
-        items[1] = "By Actor";
-        items[2] = "By Director";
-
-        builder.setView(input);
-
-        builder.setTitle("Search")
-                //.setView(input)
-                /*
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //listener.onPossitiveButtonClick();
-                                Toast.makeText(
-                                        MainActivity.this,
-                                        "Search" + items[which],
-                                        Toast.LENGTH_SHORT)
-                                        .show();
-                            }
-                        })
-                */
-                .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(
-                                MainActivity.this,
-                                "S'ha seleccionat: " + items[which],
-                                Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                });
-        return builder.create();
-    }
-
 
     void sortArrayList()
     {
@@ -421,5 +380,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setObject(object)
                 .setActionStatus(Action.STATUS_TYPE_COMPLETED)
                 .build();
+    }
+
+    private void setupSpinner(){
+        final EditText searchText = (EditText) findViewById(R.id.searchText);
+        Spinner dropdown = (Spinner)findViewById(R.id.my_spinner);
+        String[] items = new String[]{"Search by Title", "Search by Director", "Search by Year", "Search by Actor"};
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // hide selection text
+                ((TextView)view).setText(null);
+                switch (position){
+                    case 0:
+                        searchText.setHint("Search by Title...");
+                        break;
+                    case 1:
+                        searchText.setHint("Search by Director...");
+                        break;
+                    case 2:
+                        searchText.setHint("Search by Year...");
+                        break;
+                    case 3:
+                        searchText.setHint("Search by Actor...");
+                        break;
+                }
+                // if you want you can change background here
+            }
+            public void onNothingSelected(AdapterView<?> arg0) {}
+        });
+        ArrayAdapter<String> adapterSpin = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapterSpin);
+
+
     }
 }
