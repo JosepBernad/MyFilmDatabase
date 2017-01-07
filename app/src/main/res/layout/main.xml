@@ -61,7 +61,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/linearLayout" />
+                android:layout_below="@+id/linearLayout"
+                android:paddingBottom="170dp"
+                android:clipToPadding="false"/>
         </LinearLayout>
 
 
