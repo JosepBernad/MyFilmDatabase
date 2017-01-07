@@ -27,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pr_idi.mydatabaseexample.Adapters.CustomAdapter;
 import com.example.pr_idi.mydatabaseexample.Adapters.FilmsAdapter;
 import com.example.pr_idi.mydatabaseexample.Class.Film;
 import com.example.pr_idi.mydatabaseexample.Class.FilmData;
@@ -391,10 +392,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setupSpinner(){
 
         String[] items = new String[]{"Search by Title", "Search by Director", "Search by Year", "Search by Actor"};
+        ArrayAdapter<String> adapterSpin = new CustomAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapterSpin);
+
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // hide selection text
-                ((TextView)view).setText(null);
                 searchBy = position;
                 switch (position){
                     case 0:
@@ -417,8 +420,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             public void onNothingSelected(AdapterView<?> arg0) {}
         });
-        ArrayAdapter<String> adapterSpin = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown.setAdapter(adapterSpin);
+
 
 
     }
