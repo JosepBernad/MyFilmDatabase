@@ -105,6 +105,52 @@ public class FilmData {
         return comments;
     }
 
+    public List<Film> getFilmsThat(String searchTerm, int searchBy) {
+        List<Film> comments = new ArrayList<>();
+        Cursor cursor;
+        String sql;
+        if(searchTerm != null && searchTerm.length()>0) {
+            switch (searchBy) {
+                case 0: //Search By Title
+                    sql = "SELECT * FROM " + MySQLiteHelper.TABLE_FILMS + " WHERE " + MySQLiteHelper.COLUMN_TITLE + " LIKE '%" + searchTerm + "%'";
+                    cursor = database.rawQuery(sql, null);
+                    break;
+                case 1://Search By Director
+                    sql = "SELECT * FROM " + MySQLiteHelper.TABLE_FILMS + " WHERE " + MySQLiteHelper.COLUMN_DIRECTOR + " LIKE '%" + searchTerm + "%'";
+                    cursor = database.rawQuery(sql, null);
+                    break;
+                case 2://Search By Year
+                    sql = "SELECT * FROM " + MySQLiteHelper.TABLE_FILMS + " WHERE " + MySQLiteHelper.COLUMN_YEAR_RELEASE + " LIKE '%" + searchTerm + "%'";
+                    cursor = database.rawQuery(sql, null);
+                    break;
+                case 3://Search By Actor
+                    sql = "SELECT * FROM " + MySQLiteHelper.TABLE_FILMS + " WHERE " + MySQLiteHelper.COLUMN_PROTAGONIST + " LIKE '%" + searchTerm + "%'";
+                    cursor = database.rawQuery(sql, null);
+                    break;
+                default:
+                    cursor = database.query(MySQLiteHelper.TABLE_FILMS,
+                            allColumns, null, null, null, null,MySQLiteHelper.COLUMN_TITLE);
+            }
+        }
+        else {
+            cursor = database.query(MySQLiteHelper.TABLE_FILMS,
+                    allColumns, null, null, null, null,MySQLiteHelper.COLUMN_TITLE);
+        }
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Film comment = cursorToFilm(cursor);
+            comments.add(comment);
+            cursor.moveToNext();
+        }
+
+
+        // make sure to close the cursor
+        cursor.close();
+        return comments;
+
+    }
+
     private Film cursorToFilm(Cursor cursor) {
         Film film = new Film();
         film.setId(cursor.getLong(0));

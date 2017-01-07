@@ -3,35 +3,26 @@ package com.example.pr_idi.mydatabaseexample;
 
 import java.util.ArrayList;
 
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.Filter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,12 +35,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-import java.util.Vector;
 
 import static com.example.pr_idi.mydatabaseexample.R.layout.main;
 
@@ -70,14 +57,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayAdapter<String> mAdapter;
 
     private ActionBarDrawerToggle mDrawerToggle;
-    private String mActivityTitle;
 
-    private TextWatcher filterTextWatcher;
 
     private String sortBy = "title";
 
     private String[] var;
     private int anInt = 0;
+
+    private EditText searchText;
+    private Spinner dropdown;
+    private int searchBy;
 
 
     /**
@@ -92,13 +81,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(main);
         mainListView = (ListView) findViewById(R.id.my_list);
+        searchText = (EditText) findViewById(R.id.searchText);
+        dropdown = (Spinner)findViewById(R.id.my_spinner);
+        searchBy = 0;
         getSupportActionBar().setTitle("My Films");
 
 
         filmData = new FilmData(this);
         filmData.open();
 
-        filmArray = new ArrayList<>(filmData.getAllFilms());
+        filmArray = new ArrayList<>(filmData.getFilmsThat(searchText.getText().toString(),searchBy));
         sortArrayList();
 
 
@@ -113,6 +105,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         /** Search by spinner */
         setupSpinner();
+
+        /** Search TextEdit */
+
+        searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filmArray = new ArrayList<>(filmData.getFilmsThat(searchText.getText().toString(),searchBy));
+                sortArrayList();
+                adapter = new FilmsAdapter(filmArray);
+                recyclerView.setAdapter(adapter);
+            }
+        });
+
 
         var = new String[3];
         var[0] = "title";
@@ -141,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setHomeButtonEnabled(true);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mActivityTitle = getTitle().toString();
+        //mActivityTitle = getTitle().toString();
 
         mDrawerList = (ListView) findViewById(R.id.navList);
         addDrawerItems();
@@ -202,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
 
         filmData.open();
-        filmArray = new ArrayList<>(filmData.getAllFilms());
+        filmArray = new ArrayList<>(filmData.getFilmsThat(searchText.getText().toString(),searchBy));
         sortArrayList();
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -275,11 +286,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Controlar els clicks de la action bar aqui.
         int id = item.getItemId();
 
-        /*
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        */
         // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -383,13 +389,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setupSpinner(){
-        final EditText searchText = (EditText) findViewById(R.id.searchText);
-        Spinner dropdown = (Spinner)findViewById(R.id.my_spinner);
+
         String[] items = new String[]{"Search by Title", "Search by Director", "Search by Year", "Search by Actor"};
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // hide selection text
                 ((TextView)view).setText(null);
+                searchBy = position;
                 switch (position){
                     case 0:
                         searchText.setHint("Search by Title...");
@@ -404,7 +410,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         searchText.setHint("Search by Actor...");
                         break;
                 }
-                // if you want you can change background here
+                filmArray = new ArrayList<>(filmData.getFilmsThat(searchText.getText().toString(),searchBy));
+                sortArrayList();
+                adapter = new FilmsAdapter(filmArray);
+                recyclerView.setAdapter(adapter);
             }
             public void onNothingSelected(AdapterView<?> arg0) {}
         });
