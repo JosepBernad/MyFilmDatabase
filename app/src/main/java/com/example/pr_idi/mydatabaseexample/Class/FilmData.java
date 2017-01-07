@@ -108,24 +108,27 @@ public class FilmData {
     public List<Film> getFilmsThat(String searchTerm, int searchBy) {
         List<Film> comments = new ArrayList<>();
         Cursor cursor;
-        String sql;
         if(searchTerm != null && searchTerm.length()>0) {
             switch (searchBy) {
                 case 0: //Search By Title
-                    sql = "SELECT * FROM " + MySQLiteHelper.TABLE_FILMS + " WHERE " + MySQLiteHelper.COLUMN_TITLE + " LIKE '%" + searchTerm + "%'";
-                    cursor = database.rawQuery(sql, null);
+                    cursor = database.query(true, MySQLiteHelper.TABLE_FILMS, allColumns,
+                            MySQLiteHelper.COLUMN_TITLE + " LIKE ?", new String[]
+                                    {"%"+ searchTerm+ "%" }, null, null, null, null);
                     break;
                 case 1://Search By Director
-                    sql = "SELECT * FROM " + MySQLiteHelper.TABLE_FILMS + " WHERE " + MySQLiteHelper.COLUMN_DIRECTOR + " LIKE '%" + searchTerm + "%'";
-                    cursor = database.rawQuery(sql, null);
+                    cursor = database.query(true, MySQLiteHelper.TABLE_FILMS, allColumns,
+                            MySQLiteHelper.COLUMN_DIRECTOR + " LIKE ?", new String[]
+                                    {"%"+ searchTerm+ "%" }, null, null, null, null);
                     break;
                 case 2://Search By Year
-                    sql = "SELECT * FROM " + MySQLiteHelper.TABLE_FILMS + " WHERE " + MySQLiteHelper.COLUMN_YEAR_RELEASE + " LIKE '%" + searchTerm + "%'";
-                    cursor = database.rawQuery(sql, null);
+                    cursor = database.query(true, MySQLiteHelper.TABLE_FILMS, allColumns,
+                            MySQLiteHelper.COLUMN_YEAR_RELEASE + " LIKE ?", new String[]
+                                    {"%"+ searchTerm+ "%" }, null, null, null, null);
                     break;
                 case 3://Search By Actor
-                    sql = "SELECT * FROM " + MySQLiteHelper.TABLE_FILMS + " WHERE " + MySQLiteHelper.COLUMN_PROTAGONIST + " LIKE '%" + searchTerm + "%'";
-                    cursor = database.rawQuery(sql, null);
+                    cursor = database.query(true, MySQLiteHelper.TABLE_FILMS, allColumns,
+                            MySQLiteHelper.COLUMN_PROTAGONIST + " LIKE ?", new String[]
+                                    {"%"+ searchTerm+ "%" }, null, null, null, null);
                     break;
                 default:
                     cursor = database.query(MySQLiteHelper.TABLE_FILMS,
