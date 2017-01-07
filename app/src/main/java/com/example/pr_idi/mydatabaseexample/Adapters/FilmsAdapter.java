@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.filmViewHold
         holder.name.setText(filmArray.get(position).getTitle());
         String aux = filmArray.get(position).getDirector() + " - " + filmArray.get(position).getYear();
         holder.directorYear.setText(aux);
+        String aux2 = String.valueOf(filmArray.get(position).getCritics_rate());
+        holder.rate.setText(aux2);
     }
 
     /** Number of rows */
@@ -51,12 +54,14 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.filmViewHold
     public class filmViewHolder extends RecyclerView.ViewHolder
     {
         TextView name, directorYear;
+        Button rate;
 
         public filmViewHolder(View itemView) {
             super(itemView);
 
             name = (TextView)itemView.findViewById(R.id.filmName);
             directorYear = (TextView)itemView.findViewById(R.id.yearDirector);
+            rate = (Button)itemView.findViewById(R.id.ratingButton);
         }
     }
 }

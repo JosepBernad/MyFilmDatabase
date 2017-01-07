@@ -126,10 +126,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-        var = new String[3];
+        var = new String[4];
         var[0] = "title";
         var[1] = "director";
         var[2] = "year";
+        var[3] = "rate";
 
         /**
          // use the SimpleCursorAdapter to show the
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sortArrayList();
 
                 ++anInt;
-                if (anInt == 3)
+                if (anInt == 4)
                     anInt = 0;
 
 
@@ -332,6 +333,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return film1.getDirector().compareToIgnoreCase(film2.getDirector());
                     case "year":
                         return Integer.valueOf(film1.getYear()).compareTo(film2.getYear());
+                    case "rate":
+                        return Integer.valueOf(film1.getCritics_rate()).compareTo(film2.getCritics_rate());
                     default:
                         return film1.getTitle().compareToIgnoreCase(film2.getTitle());
 
