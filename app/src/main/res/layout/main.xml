@@ -62,11 +62,12 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/linearLayout"
-                android:paddingBottom="170dp"
+                android:paddingBottom="70dp"
                 android:clipToPadding="false"/>
         </LinearLayout>
 
 
+        <!--
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/sortButton"
             android:layout_width="50dp"
@@ -80,6 +81,7 @@
             android:layout_marginBottom="100dp"
             android:layout_marginEnd="24dp"
             />
+            -->
         <!--
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/searchButton"

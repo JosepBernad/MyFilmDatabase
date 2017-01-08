@@ -3,11 +3,14 @@ package com.example.pr_idi.mydatabaseexample;
 
 import java.util.ArrayList;
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -31,6 +34,7 @@ import com.example.pr_idi.mydatabaseexample.Adapters.CustomAdapter;
 import com.example.pr_idi.mydatabaseexample.Adapters.FilmsAdapter;
 import com.example.pr_idi.mydatabaseexample.Class.Film;
 import com.example.pr_idi.mydatabaseexample.Class.FilmData;
+import com.example.pr_idi.mydatabaseexample.Class.RecyclerItemClickListener;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -69,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Spinner dropdown;
     private int searchBy;
 
+    private AlertDialog levelDialog;
+    private int auxDialog = 0;
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -100,9 +107,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addButton.setOnClickListener(this);
 
 
-        /** Sort button */
+        /** Sort button
         FloatingActionButton sortButton = (FloatingActionButton) findViewById(R.id.sortButton);
         sortButton.setOnClickListener(this);
+        */
 
         /** Search by spinner */
         setupSpinner();
@@ -141,6 +149,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        /** Recycler View Clickable */
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(this , new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        //Toast.makeText(MainActivity.this, "S'ha apretat: "+ filmArray.get(position)
+                        // .getTitle(), Toast.LENGTH_SHORT).show();
+                        filmData.close();
+                        Intent i = new Intent(MainActivity.this, FilmDetailsActivity.class);
+
+                        i.putExtra("FILM_TITLE", filmArray.get(position).getTitle());
+                        i.putExtra("FILM_DIRECTOR", filmArray.get(position).getDirector());
+                        i.putExtra("FILM_COUNTRY", filmArray.get(position).getCountry());
+                        i.putExtra("FILM_YEAR", filmArray.get(position).getYear());
+                        i.putExtra("FILM_ACTOR", filmArray.get(position).getProtagonist());
+                        i.putExtra("FILM_RATE", filmArray.get(position).getCritics_rate());
+
+                        startActivity(i);
+                    }
+                })
+        );
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -185,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
 
-
+            /*
             case R.id.sortButton:
 
                 sortBy = var[anInt];
@@ -205,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recyclerView.setAdapter(adapter1);
 
                 break;
-
+                */
         }
 
     }
@@ -288,6 +316,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Controlar els clicks de la action bar aqui.
         int id = item.getItemId();
 
+        //Activate the sort Button in the ActionBar
+        if (id == R.id.sortAction) {
+            final CharSequence[] items = { "Title", "Director", "Year", "Actor" };
+
+            // Creating and Building the Dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Sort By");
+            auxDialog = anInt;
+            builder.setSingleChoiceItems(items,anInt,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int item) {
+                            auxDialog = item;
+                            //sortBy = var[item];
+                            //levelDialog.dismiss();
+                        }
+                    });
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    anInt = auxDialog;
+                    sortBy = var[auxDialog];
+                    sortArrayList();
+                    FilmsAdapter adapter1 = new FilmsAdapter(filmArray);
+                    recyclerView.setAdapter(adapter1);
+                    levelDialog.dismiss();
+                }
+            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    auxDialog = anInt;
+                    levelDialog.dismiss();
+                }
+            });
+            levelDialog =builder.create();
+            levelDialog.show();
+            return true;
+        }
         // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -424,7 +487,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onNothingSelected(AdapterView<?> arg0) {}
         });
 
+    }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 }
