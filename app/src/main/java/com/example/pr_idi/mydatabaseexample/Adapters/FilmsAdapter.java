@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.filmViewHolder>
 {
     private ArrayList<Film> filmArray;
+    private int expandedPosition = -1;
 
     public FilmsAdapter(ArrayList<Film> filmArray) {
         this.filmArray = filmArray;
@@ -63,5 +64,9 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.filmViewHold
             directorYear = (TextView)itemView.findViewById(R.id.yearDirector);
             rate = (Button)itemView.findViewById(R.id.ratingButton);
         }
+    }
+
+    public void setExpandedPosition(int expandI){
+        expandedPosition = expandI;
     }
 }

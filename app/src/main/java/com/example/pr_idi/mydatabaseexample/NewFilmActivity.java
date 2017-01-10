@@ -62,7 +62,7 @@ public class NewFilmActivity extends AppCompatActivity {
 
 
     public void listenerForRatingBar() {
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar_new);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBarQEdit);
         ratingText = (TextView) findViewById(R.id.ratingText_new);
 
         ratingBar.setOnRatingBarChangeListener(

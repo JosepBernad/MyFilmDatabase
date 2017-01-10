@@ -30,7 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pr_idi.mydatabaseexample.Adapters.CustomAdapter;
+import com.example.pr_idi.mydatabaseexample.Adapters.SpinnerAdapter;
 import com.example.pr_idi.mydatabaseexample.Adapters.FilmsAdapter;
 import com.example.pr_idi.mydatabaseexample.Class.Film;
 import com.example.pr_idi.mydatabaseexample.Class.FilmData;
@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private AlertDialog levelDialog;
     private int auxDialog = 0;
+
+    private AlertDialog deleteConfirm;
+    private int index2Delete;
 
 
     /**
@@ -150,25 +153,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         /** Recycler View Clickable */
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(this , new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        //Toast.makeText(MainActivity.this, "S'ha apretat: "+ filmArray.get(position)
-                        // .getTitle(), Toast.LENGTH_SHORT).show();
-                        filmData.close();
-                        Intent i = new Intent(MainActivity.this, FilmDetailsActivity.class);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                filmData.close();
+                Intent i = new Intent(MainActivity.this, FilmDetailsActivity.class);
 
-                        i.putExtra("FILM_TITLE", filmArray.get(position).getTitle());
-                        i.putExtra("FILM_DIRECTOR", filmArray.get(position).getDirector());
-                        i.putExtra("FILM_COUNTRY", filmArray.get(position).getCountry());
-                        i.putExtra("FILM_YEAR", filmArray.get(position).getYear());
-                        i.putExtra("FILM_ACTOR", filmArray.get(position).getProtagonist());
-                        i.putExtra("FILM_RATE", filmArray.get(position).getCritics_rate());
+                i.putExtra("FILM_ID", filmArray.get(position).getId());
+                i.putExtra("FILM_TITLE", filmArray.get(position).getTitle());
+                i.putExtra("FILM_DIRECTOR", filmArray.get(position).getDirector());
+                i.putExtra("FILM_COUNTRY", filmArray.get(position).getCountry());
+                i.putExtra("FILM_YEAR", filmArray.get(position).getYear());
+                i.putExtra("FILM_ACTOR", filmArray.get(position).getProtagonist());
+                i.putExtra("FILM_RATE", filmArray.get(position).getCritics_rate());
 
-                        startActivity(i);
+                startActivity(i);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                index2Delete = position;
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Do you want to delete this?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        filmData.deleteFilm(filmArray.get(index2Delete));
+                        filmArray.remove(index2Delete);
+                        FilmsAdapter adapter = new FilmsAdapter(filmArray);
+                        recyclerView.setAdapter(adapter);
+                        Toast.makeText(MainActivity.this, "Ja se borrar Pelis \\o/", Toast.LENGTH_SHORT).show();
+                        deleteConfirm.dismiss();
                     }
-                })
-        );
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        deleteConfirm.dismiss();
+                    }
+                });
+                deleteConfirm =builder.create();
+                deleteConfirm.show();
+            }
+        }));
+
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -458,7 +483,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setupSpinner(){
 
         String[] items = new String[]{"Search by Title", "Search by Director", "Search by Year", "Search by Actor"};
-        ArrayAdapter<String> adapterSpin = new CustomAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapterSpin = new SpinnerAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapterSpin);
 
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

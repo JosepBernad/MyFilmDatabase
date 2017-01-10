@@ -23,6 +23,7 @@ public class FilmDetailsActivity extends Activity
     TextView title, director, protagonist, year, country, rate;
     String sTitle, sDirector, sProtagonist, sCountry;
     int iYear, iRate;
+    long mId;
 
     FloatingActionButton editButton;
 
@@ -34,7 +35,7 @@ public class FilmDetailsActivity extends Activity
         setContentView(R.layout.film_details);
 
         //getSupportActionBar().setTitle("Film Details");
-
+        mId = getIntent().getLongExtra("FILM_ID",0);
         sTitle = getIntent().getStringExtra("FILM_TITLE");
         sDirector = getIntent().getStringExtra("FILM_DIRECTOR");
         sProtagonist = getIntent().getStringExtra("FILM_ACTOR");
