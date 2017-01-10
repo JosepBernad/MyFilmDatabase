@@ -91,7 +91,7 @@ public class NewFilmActivity extends AppCompatActivity {
                 EditText directorText = (EditText) findViewById(R.id.director_new);
                 EditText countryText = (EditText) findViewById(R.id.country_new);
                 EditText yearText = (EditText) findViewById(R.id.year_new);
-                EditText protagonstText = (EditText) findViewById(R.id.protagonist_new);
+                EditText protagonistText = (EditText) findViewById(R.id.protagonist_new);
 
                 if (titleText.length() == 0) {
                     title = false;
@@ -109,9 +109,9 @@ public class NewFilmActivity extends AppCompatActivity {
                     year = false;
                     yearText.setError("Put a year");
                 }
-                if (protagonstText.length() == 0) {
+                if (protagonistText.length() == 0) {
                     protagonist = false;
-                    protagonstText.setError("Put a protagonist");
+                    protagonistText.setError("Put a protagonist");
                 }
 
                 if (title && director && country && year && protagonist) {
@@ -122,7 +122,7 @@ public class NewFilmActivity extends AppCompatActivity {
                                     directorText.getText().toString().trim(),
                                     countryText.getText().toString().trim(),
                                     Integer.parseInt(yearText.getText().toString()),
-                                    protagonstText.getText().toString().trim(),
+                                    protagonistText.getText().toString().trim(),
                                     Integer.parseInt(ratingText.getText().toString())
                             );
                     filmData.close();
@@ -135,12 +135,6 @@ public class NewFilmActivity extends AppCompatActivity {
 
 
 
-    public String capitalizeFirstLetter(String original) {
-        if (original == null || original.length() == 0) {
-            return original;
-        }
-        return original.substring(0, 1).toUpperCase() + original.substring(1);
-    }
 
 
     /**

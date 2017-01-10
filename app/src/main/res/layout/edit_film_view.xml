@@ -121,14 +121,14 @@
                 android:text="Cancel"
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/button"
+                android:id="@+id/submitButton_edit"
                 android:layout_weight="1" />
 
             <Button
                 android:text="Done"
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/button2"
+                android:id="@+id/cancelButton_edit"
                 android:layout_weight="1" />
 
         </LinearLayout>

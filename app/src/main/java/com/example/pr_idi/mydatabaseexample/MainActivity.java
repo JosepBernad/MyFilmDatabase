@@ -171,12 +171,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             @Override
-            public void onItemLongClick(View view, int position) {
+            public void onItemLongClick(View view, int position)
+            {
                 index2Delete = position;
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Do you want to delete this?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                builder.setTitle("Do you want to delete this film?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
                         filmData.deleteFilm(filmArray.get(index2Delete));
                         filmArray.remove(index2Delete);
                         FilmsAdapter adapter = new FilmsAdapter(filmArray);
@@ -184,12 +187,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(MainActivity.this, "Ja se borrar Pelis \\o/", Toast.LENGTH_SHORT).show();
                         deleteConfirm.dismiss();
                     }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                }).setNegativeButton("No", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
                         deleteConfirm.dismiss();
                     }
                 });
-                deleteConfirm =builder.create();
+                deleteConfirm = builder.create();
                 deleteConfirm.show();
             }
         }));
@@ -342,8 +347,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         //Activate the sort Button in the ActionBar
-        if (id == R.id.sortAction) {
-            final CharSequence[] items = { "Title", "Director", "Year", "Actor" };
+        if (id == R.id.sortAction)
+        {
+            final CharSequence[] items = { "Title", "Director", "Year", "Rating" };
 
             // Creating and Building the Dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -372,7 +378,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     levelDialog.dismiss();
                 }
             });
-            levelDialog =builder.create();
+            levelDialog = builder.create();
             levelDialog.show();
             return true;
         }
