@@ -1,10 +1,16 @@
 package com.example.pr_idi.mydatabaseexample;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.AppIndex;
 
@@ -18,10 +24,12 @@ public class FilmDetailsActivity extends Activity
     String sTitle, sDirector, sProtagonist, sCountry;
     int iYear, iRate;
 
+    FloatingActionButton editButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-    //public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        //public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         //super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.film_details);
         //getSupportActionBar().setTitle("Film Details");
@@ -40,6 +48,8 @@ public class FilmDetailsActivity extends Activity
         director.setText(sDirector);
         year.setText(String.valueOf(iYear));
 
+        listenerForEditButton();
+
     }
     @Override
     public void onStart() {
@@ -52,4 +62,31 @@ public class FilmDetailsActivity extends Activity
         super.onStop();
 
     }
+
+    public void listenerForEditButton()
+    {
+        editButton = (FloatingActionButton) findViewById(R.id.edit_button);
+
+        editButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                //Toast.makeText(FilmDetailsActivity.this,"ueeep",Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(FilmDetailsActivity.this, EditFilmActivity.class);
+
+                i.putExtra("FILM_TITLE", sTitle);
+                i.putExtra("FILM_DIRECTOR", sDirector);
+                i.putExtra("FILM_COUNTRY", sCountry);
+                i.putExtra("FILM_YEAR", iYear);
+                i.putExtra("FILM_ACTOR", sProtagonist);
+                i.putExtra("FILM_RATE", iRate);
+
+                startActivity(i);
+
+            }
+        });
+    }
+
 }

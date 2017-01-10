@@ -397,7 +397,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     case "year":
                         return Integer.valueOf(film1.getYear()).compareTo(film2.getYear());
                     case "rate":
-                        return Integer.valueOf(film1.getCritics_rate()).compareTo(film2.getCritics_rate());
+                        return Integer.valueOf(film2.getCritics_rate()).compareTo(film1.getCritics_rate());
                     default:
                         return film1.getTitle().compareToIgnoreCase(film2.getTitle());
 
