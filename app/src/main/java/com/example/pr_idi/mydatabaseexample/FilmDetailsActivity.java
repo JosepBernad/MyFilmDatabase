@@ -20,7 +20,7 @@ import com.google.android.gms.appindexing.AppIndex;
 
 public class FilmDetailsActivity extends Activity
 {
-    TextView title, director, protagonist, year, country;
+    TextView title, director, protagonist, year, country, rate;
     String sTitle, sDirector, sProtagonist, sCountry;
     int iYear, iRate;
 
@@ -32,7 +32,9 @@ public class FilmDetailsActivity extends Activity
         //public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         //super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.film_details);
+
         //getSupportActionBar().setTitle("Film Details");
+
         sTitle = getIntent().getStringExtra("FILM_TITLE");
         sDirector = getIntent().getStringExtra("FILM_DIRECTOR");
         sProtagonist = getIntent().getStringExtra("FILM_ACTOR");
@@ -43,10 +45,17 @@ public class FilmDetailsActivity extends Activity
         title = (TextView)findViewById(R.id.titleTextView);
         director = (TextView)findViewById(R.id.directorTextView);
         year = (TextView)findViewById(R.id.yearTextView);
+        protagonist = (TextView) findViewById(R.id.protagonistTextView);
+        country = (TextView) findViewById(R.id.placeTextView);
+        rate = (TextView) findViewById(R.id.rateTextView);
 
         title.setText(sTitle);
         director.setText(sDirector);
         year.setText(String.valueOf(iYear));
+        country.setText(sCountry);
+        protagonist.setText(sProtagonist);
+        rate.setText(String.valueOf(iRate));
+
 
         listenerForEditButton();
 
