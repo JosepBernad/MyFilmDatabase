@@ -30,6 +30,7 @@ public class EditFilmActivity extends AppCompatActivity
 
     String sTitle, sDirector, sProtagonist, sCountry;
     int iYear, iRate;
+    long mId;
 
     /*
     @Override
@@ -48,6 +49,7 @@ public class EditFilmActivity extends AppCompatActivity
         getSupportActionBar().setTitle("Edit film");
 
         //Old values
+        mId = getIntent().getLongExtra("FILM_ID",0);
         sTitle = getIntent().getStringExtra("FILM_TITLE");
         sDirector = getIntent().getStringExtra("FILM_DIRECTOR");
         sProtagonist = getIntent().getStringExtra("FILM_ACTOR");

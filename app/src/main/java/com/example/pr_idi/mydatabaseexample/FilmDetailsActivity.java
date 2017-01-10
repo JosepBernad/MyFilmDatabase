@@ -86,6 +86,7 @@ public class FilmDetailsActivity extends Activity
 
                 Intent i = new Intent(FilmDetailsActivity.this, EditFilmActivity.class);
 
+                i.putExtra("FILM_ID", mId);
                 i.putExtra("FILM_TITLE", sTitle);
                 i.putExtra("FILM_DIRECTOR", sDirector);
                 i.putExtra("FILM_COUNTRY", sCountry);
