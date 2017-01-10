@@ -1,16 +1,8 @@
 package com.example.pr_idi.mydatabaseexample;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,8 +15,6 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
-
-import org.w3c.dom.Text;
 
 
 /**
@@ -72,8 +62,8 @@ public class NewFilmActivity extends AppCompatActivity {
 
 
     public void listenerForRatingBar() {
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingText = (TextView) findViewById(R.id.ratingText);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar_new);
+        ratingText = (TextView) findViewById(R.id.ratingText_new);
 
         ratingBar.setOnRatingBarChangeListener(
                 new RatingBar.OnRatingBarChangeListener() {
@@ -86,7 +76,7 @@ public class NewFilmActivity extends AppCompatActivity {
     }
 
     public void listenerForSubmitButton() {
-        submitButton = (Button) findViewById(R.id.submitButton);
+        submitButton = (Button) findViewById(R.id.submitButton_new);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,11 +87,11 @@ public class NewFilmActivity extends AppCompatActivity {
                 boolean year = true;
                 boolean protagonist = true;
 
-                EditText titleText = (EditText) findViewById(R.id.title_edit);
-                EditText directorText = (EditText) findViewById(R.id.director_edit);
-                EditText countryText = (EditText) findViewById(R.id.country_edit);
-                EditText yearText = (EditText) findViewById(R.id.year_edit);
-                EditText protagonstText = (EditText) findViewById(R.id.protagonist_edit);
+                EditText titleText = (EditText) findViewById(R.id.title_new);
+                EditText directorText = (EditText) findViewById(R.id.director_new);
+                EditText countryText = (EditText) findViewById(R.id.country_new);
+                EditText yearText = (EditText) findViewById(R.id.year_new);
+                EditText protagonstText = (EditText) findViewById(R.id.protagonist_new);
 
                 if (titleText.length() == 0) {
                     title = false;

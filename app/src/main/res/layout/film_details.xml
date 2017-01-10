@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <LinearLayout
+        android:id="@+id/linear_title"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="98dp"
-        android:background="@color/filmTitle">
+        android:background="@color/filmTitle"
+        android:layout_alignParentTop="true">
 
         <TextView
             android:text="Piratas del Caribe"
@@ -19,72 +21,114 @@
             android:gravity="bottom"
             android:id="@+id/titleTextView"
             android:layout_weight="1"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_title">
 
-        <ImageView
-            android:layout_width="400px"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_action_name"
-            android:id="@+id/directorImageView"
-            android:layout_weight="1" />
-
-        <TextView
-            android:text="TextView"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:id="@+id/directorTextView"
-            android:layout_weight="1" />
+            android:background="@drawable/background_film_details"
+            >
 
-    </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1">
+                <ImageView
+                    android:layout_width="400px"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_director"
+                    android:id="@+id/directorImageView"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"/>
 
-        <ImageView
-            android:layout_width="400px"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_action_name"
-            android:id="@+id/yearImageView"
-            android:layout_weight="1" />
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:id="@+id/directorTextView"
+                    android:layout_weight="1"
+                    android:textSize="30sp"
+                    />
 
-        <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:id="@+id/yearTextView"
-            android:layout_weight="1" />
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"></LinearLayout>
+                <ImageView
+                    android:layout_width="400px"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_year"
+                    android:id="@+id/yearImageView"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"></LinearLayout>
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:id="@+id/yearTextView"
+                    android:layout_weight="1"
+                    android:textSize="30sp"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"></LinearLayout>
+            </LinearLayout>
 
-</LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"></LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"></LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:backgroundTint="#66FF11"
+        android:src="@drawable/ic_edit_button"/>
+
+</RelativeLayout>

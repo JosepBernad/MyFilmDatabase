@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <!-- Title -->
+    <EditText
+        android:id="@+id/title_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Film title"
+        android:ems="10"
+        android:layout_weight="0.05"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
+
+    <!-- Director -->
+    <EditText
+        android:id="@+id/director_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Film director"
+        android:ems="10"
+        android:layout_weight="0.05"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/title_new"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
+
+    <!-- Country -->
+    <EditText
+        android:id="@+id/country_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Film country"
+        android:ems="10"
+        android:layout_weight="0.05"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/title_new"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
+
+    <!-- Year -->
+    <EditText
+        android:layout_below="@+id/year_edit"
+        android:id="@+id/year_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Film year"
+        android:ems="10"
+        android:layout_weight="0.05"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="200dp"/>
+
+    <!-- Protagonist -->
+    <EditText
+        android:id="@+id/protagonist_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Film protagonist"
+        android:ems="10"
+        android:layout_weight="0.05"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/title_new"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
+
+    <!-- Rating Text -->
+    <TextView
+        android:id="@+id/ratingText_edit"
+        android:text = "5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:layout_weight="0.05"
+        android:textColor="#8a8a8a"/>
+
+    <!-- RatingBar -->
+    <RatingBar
+        android:id="@+id/ratingBar_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:layout_gravity="center"
+        android:stepSize="0.5"
+        android:rating="2.5"/>
+
+    <Button
+        android:id="@+id/submitButton_edit"
+        android:text="Submit"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05" />
+
+
+</LinearLayout>
+</ScrollView>
