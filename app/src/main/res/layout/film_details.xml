@@ -27,7 +27,12 @@
             android:paddingBottom="5dp"
             android:paddingStart="20dp"
             android:textStyle="bold"
-            />
+            android:shadowColor="#000000"
+            android:shadowDx="1.5"
+            android:shadowDy="1.3"
+            android:shadowRadius="1.6"/>
+
+
 
     </LinearLayout>
 
@@ -44,6 +49,86 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp">
+
+                    <!-- Year -->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="12dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_year"
+                            android:id="@+id/yearImageView"
+                            />
+
+
+                        <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:id="@+id/yearTextView"
+                            android:textSize="25sp"
+                            android:paddingStart="10dp"/>
+
+                    </LinearLayout>
+
+
+                    <!-- Country -->
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="12dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_place"
+                            android:id="@+id/placeImageView" />
+
+                        <TextView
+                            android:text="TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:id="@+id/placeTextView"
+                            android:textSize="25sp"
+                            android:paddingStart="10dp"
+                            />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingStart="150dp"
+                    android:src="@drawable/ic_director"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_gravity="center"
+                android:layout_width="340dp"
+                android:layout_height="2dip"
+                android:background="#999999" />
 
             <!-- Director -->
             <LinearLayout
@@ -67,65 +152,6 @@
                     android:textSize="25sp"
                     android:paddingStart="10dp"
                     />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <!-- Year -->
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="12dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_year"
-                        android:id="@+id/yearImageView"
-                        />
-
-
-                    <TextView
-                        android:text="TextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:id="@+id/yearTextView"
-                        android:textSize="25sp"
-                        android:paddingStart="10dp"/>
-
-                </LinearLayout>
-
-
-                <!-- Country -->
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="30dp">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_place"
-                        android:id="@+id/placeImageView" />
-
-                    <TextView
-                        android:text="TextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:id="@+id/placeTextView"
-                        android:textSize="25sp"
-                        android:paddingStart="10dp"
-                        />
-                </LinearLayout>
-
 
             </LinearLayout>
 

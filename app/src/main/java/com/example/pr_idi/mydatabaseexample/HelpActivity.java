@@ -24,6 +24,9 @@ public class HelpActivity extends AppCompatActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class HelpActivity extends AppCompatActivity {
         addDrawerItems();
 
         setupDrawer();
+
     }
     private void addDrawerItems() {
         String[] filmArray = {"My Films", "Add Film", "Help", "About"};
@@ -97,6 +101,7 @@ public class HelpActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         // Controlar els clicks de la action bar aqui.
         int id = item.getItemId();

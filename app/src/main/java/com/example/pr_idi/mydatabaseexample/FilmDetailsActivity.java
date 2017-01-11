@@ -59,7 +59,7 @@ public class FilmDetailsActivity extends Activity
         protagonist.setText(sProtagonist);
         rate.setText(String.valueOf(iRate));
 
-        title.setShadowLayer(20, 0, 0, Color.BLACK);
+        //title.setShadowLayer(20, 0, 0, Color.BLACK);
 
         listenerForEditButton();
 
