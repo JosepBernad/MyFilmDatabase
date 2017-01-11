@@ -19,7 +19,8 @@
         <activity android:name=".NewFilmActivity" />
         <activity android:name=".FilmDetailsActivity" />
         <activity android:name=".EditFilmActivity" />
-        <activity android:name=".AboutActivity" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".HelpActivity" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
 
         <meta-data

@@ -19,7 +19,7 @@ import android.widget.ListView;
  * Created by roger on 11/01/17.
  */
 
-public class AboutActivity extends AppCompatActivity {
+public class HelpActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -27,14 +27,14 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.about);
-        getSupportActionBar().setTitle("About");
+        setContentView(R.layout.help);
+        getSupportActionBar().setTitle("Help");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_about);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_help);
 
-        mDrawerList = (ListView) findViewById(R.id.navListAbout);
+        mDrawerList = (ListView) findViewById(R.id.navListHelp);
         LayoutInflater myinflater = getLayoutInflater();
         ViewGroup myHeader = (ViewGroup)myinflater.inflate(R.layout.headerlayout, mDrawerList, false);
         mDrawerList.addHeaderView(myHeader, null, false);
@@ -58,17 +58,17 @@ public class AboutActivity extends AppCompatActivity {
                     case 2: //cas Add Film
                         finish();
                         mDrawerLayout.closeDrawer(GravityCompat.START);
-                        Intent i = new Intent(AboutActivity.this, NewFilmActivity.class);
+                        Intent i = new Intent(HelpActivity.this, NewFilmActivity.class);
                         startActivity(i);
                         break;
                     case 3: //cas Help
-                        finish();
                         mDrawerLayout.closeDrawer(GravityCompat.START);
-                        i = new Intent(AboutActivity.this, HelpActivity.class);
-                        startActivity(i);
                         break;
                     case 4: //cas About
+                        finish();
                         mDrawerLayout.closeDrawer(GravityCompat.START);
+                        i = new Intent(HelpActivity.this, AboutActivity.class);
+                        startActivity(i);
                         break;
                 }
             }
@@ -89,7 +89,7 @@ public class AboutActivity extends AppCompatActivity {
             /** Es crida quan el drawer esta completament tancat */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle("About");
+                getSupportActionBar().setTitle("Help");
                 invalidateOptionsMenu();
             }
         };
