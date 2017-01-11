@@ -55,6 +55,9 @@ public class HelpActivity extends AppCompatActivity {
         addDrawerItems();
         setupDrawer();
 
+        prevButton.setVisibility(View.GONE);
+        nextButton.setVisibility(View.VISIBLE);
+
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,27 +175,43 @@ public class HelpActivity extends AppCompatActivity {
     private void changeImage(){
         switch(actualImage){
             case 0:
+                prevButton.setVisibility(View.GONE);
+                nextButton.setVisibility(View.VISIBLE);
                 imageView.setImageResource(R.drawable.im_help1);
                 break;
             case 1:
+                prevButton.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.VISIBLE);
                 imageView.setImageResource(R.drawable.im_help2);
                 break;
             case 2:
+                prevButton.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.VISIBLE);
                 imageView.setImageResource(R.drawable.im_help3);
                 break;
             case 3:
+                prevButton.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.VISIBLE);
                 imageView.setImageResource(R.drawable.im_help4);
                 break;
             case 4:
+                prevButton.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.VISIBLE);
                 imageView.setImageResource(R.drawable.im_help5);
                 break;
             case 5:
+                prevButton.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.VISIBLE);
                 imageView.setImageResource(R.drawable.im_help6);
                 break;
             case 6:
+                prevButton.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.GONE);
                 imageView.setImageResource(R.drawable.im_help7);
                 break;
             default:
+                prevButton.setVisibility(View.GONE);
+                nextButton.setVisibility(View.VISIBLE);
                 imageView.setImageResource(R.drawable.im_help1);
         }
     }
