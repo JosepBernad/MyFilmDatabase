@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -159,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemLongClick(View view, int position) {
                 if(expandedPosition!=position){
+                    view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
                     adapter.setExpandedPosition(position);
                     adapter.notifyDataSetChanged();
                     expandedPosition = position;
@@ -257,14 +259,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         startActivity(i);
                         break;
                     case 3: //cas Help
+                        filmData.close();
                         mDrawerLayout.closeDrawer(GravityCompat.START);
-                        Toast.makeText(MainActivity.this, "Help encara s'ha de implementar XD", Toast.LENGTH_SHORT).show();
+                        i = new Intent(MainActivity.this, HelpActivity.class);
+                        startActivity(i);
                         break;
                     case 4: //cas About
                         filmData.close();
                         mDrawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent = new Intent(MainActivity.this, AboutActivity.class);
-                        startActivity(intent);
+                        i = new Intent(MainActivity.this, AboutActivity.class);
+                        startActivity(i);
                         break;
                 }
             }
