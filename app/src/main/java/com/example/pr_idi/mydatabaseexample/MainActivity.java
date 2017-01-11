@@ -100,14 +100,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         searchBy = 0;
         getSupportActionBar().setTitle("My Films");
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if(!prefs.getBoolean("firstTime", false)) {
-            // run your one time code
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean("firstTime", true);
-            editor.commit();
-        }
-
         filmData = new FilmData(this);
         filmData.open();
         onlyFirstTime();

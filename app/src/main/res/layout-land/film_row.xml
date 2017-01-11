@@ -27,7 +27,7 @@
 
             <!-- Title -->
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="5dp"
@@ -36,17 +36,23 @@
                 android:textSize="24sp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
-                android:text="Pirates of the caribbean"/>
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Pirates of the caribbean"
+                android:layout_toStartOf="@+id/ratingButton" />
 
             <!-- Director - Year -->
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/yearDirector"
                 android:textSize="20sp"
                 android:layout_below="@+id/filmName"
                 android:layout_alignStart="@+id/filmName"
-                android:text="Toni Xango i Muntaner - 2007"/>
+                android:text="Toni Xango i Muntaner - 2007"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_toStartOf="@+id/ratingButton" />
 
             <Button
                 android:text="10"
@@ -68,7 +74,8 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:id="@+id/llExpandArea"
+            android:visibility="visible"
             android:layout_below="@id/origHolder"
             android:background="#cbcbcb">
 
