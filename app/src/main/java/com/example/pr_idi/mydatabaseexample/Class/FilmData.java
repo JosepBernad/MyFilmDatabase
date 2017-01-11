@@ -176,10 +176,16 @@ public class FilmData {
         return cursorToFilm(cursor);
     }
 
-    public void setTitle(long id, String title){
-        Toast.makeText(contextI,"Ha entraty",Toast.LENGTH_SHORT).show();
-        String sql="update "+MySQLiteHelper.TABLE_FILMS+" set availability='"+title+"' where "+MySQLiteHelper.COLUMN_ID+"='"+id+"'";
-        database.execSQL(sql, null);
+    public void modify(Film film){
+        long id=film.getId();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.COLUMN_TITLE,film.getTitle());
+        cv.put(MySQLiteHelper.COLUMN_DIRECTOR,film.getDirector());
+        cv.put(MySQLiteHelper.COLUMN_COUNTRY,film.getCountry());
+        cv.put(MySQLiteHelper.COLUMN_YEAR_RELEASE,film.getYear());
+        cv.put(MySQLiteHelper.COLUMN_PROTAGONIST,film.getProtagonist());
+        cv.put(MySQLiteHelper.COLUMN_CRITICS_RATE,film.getCritics_rate());
+        database.update(MySQLiteHelper.TABLE_FILMS,cv,"_id='"+String.valueOf(id)+"'",null);
     }
 
 }

@@ -111,12 +111,11 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.filmViewHold
                     FilmData filmData = new FilmData(context);
                     filmData.open();
                     Film aux = filmArray.get(expandedPosition);
-                    filmData.deleteFilm(aux);
                     aux.setCritics_rate(Integer.parseInt(actualRateText.getText().toString()));
-                    filmData.createFilm(aux.getTitle(),aux.getDirector(),aux.getCountry(),aux.getYear(),aux.getProtagonist(),aux.getCritics_rate());
+                    filmData.modify(aux);
                     filmData.close();
-                    notifyItemChanged(expandedPosition);
                     expandedPosition = -1;
+                    notifyItemChanged(expandedPosition);
                     updateExpandedPos(-1);
                     Toast.makeText(context, "Film Rate modified", Toast.LENGTH_SHORT).show();
                     llExpandArea.setVisibility(View.GONE);

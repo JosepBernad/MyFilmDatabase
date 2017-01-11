@@ -50,14 +50,6 @@ public class FilmDetailsActivity extends Activity
         sCountry = aux.getCountry();
         iYear = aux.getYear();
         iRate = aux.getCritics_rate();
-        /*
-        sTitle = getIntent().getStringExtra("FILM_TITLE");
-        sDirector = getIntent().getStringExtra("FILM_DIRECTOR");
-        sProtagonist = getIntent().getStringExtra("FILM_ACTOR");
-        sCountry = getIntent().getStringExtra("FILM_COUNTRY");
-        iYear = getIntent().getIntExtra("FILM_YEAR",2000);
-        iRate = getIntent().getIntExtra("FILM_RATE", 5);
-        */
 
         title = (TextView)findViewById(R.id.titleTextView);
         director = (TextView)findViewById(R.id.directorTextView);
@@ -90,6 +82,30 @@ public class FilmDetailsActivity extends Activity
         filmData.close();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //mId = getIntent().getLongExtra("FILM_ID",0);
+        FilmData filmData = new FilmData(this);
+        filmData.open();
+        Film aux = filmData.getFilm(mId);
+        filmData.close();
+
+        sTitle = aux.getTitle();
+        sDirector = aux.getDirector();
+        sProtagonist = aux.getProtagonist();
+        sCountry = aux.getCountry();
+        iYear = aux.getYear();
+        iRate = aux.getCritics_rate();
+
+        title.setText(sTitle);
+        director.setText(sDirector);
+        year.setText(String.valueOf(iYear));
+        country.setText(sCountry);
+        protagonist.setText(sProtagonist);
+        rate.setText(String.valueOf(iRate));
+    }
+
     public void listenerForEditButton()
     {
         editButton = (FloatingActionButton) findViewById(R.id.edit_button);
@@ -104,12 +120,6 @@ public class FilmDetailsActivity extends Activity
                 Intent i = new Intent(FilmDetailsActivity.this, EditFilmActivity.class);
 
                 i.putExtra("FILM_ID", mId);
-                i.putExtra("FILM_TITLE", sTitle);
-                i.putExtra("FILM_DIRECTOR", sDirector);
-                i.putExtra("FILM_COUNTRY", sCountry);
-                i.putExtra("FILM_YEAR", iYear);
-                i.putExtra("FILM_ACTOR", sProtagonist);
-                i.putExtra("FILM_RATE", iRate);
 
                 startActivity(i);
 

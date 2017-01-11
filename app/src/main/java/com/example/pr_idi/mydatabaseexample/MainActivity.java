@@ -162,12 +162,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Intent i = new Intent(MainActivity.this, FilmDetailsActivity.class);
 
                     i.putExtra("FILM_ID", filmArray.get(position).getId());
-                    i.putExtra("FILM_TITLE", filmArray.get(position).getTitle());
-                    i.putExtra("FILM_DIRECTOR", filmArray.get(position).getDirector());
-                    i.putExtra("FILM_COUNTRY", filmArray.get(position).getCountry());
-                    i.putExtra("FILM_YEAR", filmArray.get(position).getYear());
-                    i.putExtra("FILM_ACTOR", filmArray.get(position).getProtagonist());
-                    i.putExtra("FILM_RATE", filmArray.get(position).getCritics_rate());
 
                     startActivity(i);
                 }

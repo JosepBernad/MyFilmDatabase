@@ -52,12 +52,15 @@ public class EditFilmActivity extends AppCompatActivity
 
         //Old values
         mId = getIntent().getLongExtra("FILM_ID",0);
-        sTitle = getIntent().getStringExtra("FILM_TITLE");
-        sDirector = getIntent().getStringExtra("FILM_DIRECTOR");
-        sProtagonist = getIntent().getStringExtra("FILM_ACTOR");
-        sCountry = getIntent().getStringExtra("FILM_COUNTRY");
-        iYear = getIntent().getIntExtra("FILM_YEAR", 2000);
-        iRate = getIntent().getIntExtra("FILM_RATE", 5);
+        filmData = new FilmData(EditFilmActivity.this);
+        filmData.open();
+        Film aux = filmData.getFilm(mId);
+        sTitle = aux.getTitle();
+        sDirector = aux.getDirector();
+        sProtagonist = aux.getProtagonist();
+        sCountry = aux.getCountry();
+        iYear = aux.getYear();
+        iRate = aux.getCritics_rate();
 
 
 
@@ -104,13 +107,6 @@ public class EditFilmActivity extends AppCompatActivity
             {
                 public void onClick(DialogInterface dialog, int id)
                 {
-                    /*
-                    filmData.deleteFilm(filmArray.get(index2Delete));
-                    filmArray.remove(index2Delete);
-                    FilmsAdapter adapter = new FilmsAdapter(filmArray);
-                    recyclerView.setAdapter(adapter);
-                    Toast.makeText(MainActivity.this, "Ja se borrar Pelis \\o/", Toast.LENGTH_SHORT).show();
-                    deleteConfirm.dismiss(); */
 
                     filmData.deleteFilm(oldFilm);
                     filmData.close();
@@ -189,23 +185,18 @@ public class EditFilmActivity extends AppCompatActivity
                 }
 
                 if (bTitle && bDirector && bCountry && bYear && bProtagonist) {
-                    if(title.getText().toString() != sTitle){
-                        Toast.makeText(EditFilmActivity.this,"Ha entraty",Toast.LENGTH_SHORT).show();
-                        filmData.setTitle(mId,title.getText().toString());
-                    }/*
-                    filmData.deleteFilm(oldFilm);
-                    Film film;
-                    film = filmData.createFilm
-                            (
-                                    title.getText().toString().trim(),
-                                    director.getText().toString().trim(),
-                                    country.getText().toString().trim(),
-                                    Integer.parseInt(year.getText().toString()),
-                                    protagonist.getText().toString().trim(),
-                                    Integer.parseInt(rate.getText().toString())
-                            );
-                            */
+                    Film film = new Film();
+                    film.setId(mId);
+                    film.setTitle(title.getText().toString().trim());
+                    film.setDirector(director.getText().toString().trim());
+                    film.setCountry(country.getText().toString().trim());
+                    film.setYear(Integer.parseInt(year.getText().toString()));
+                    film.setProtagonist(protagonist.getText().toString().trim());
+                    film.setCritics_rate(Integer.parseInt(rate.getText().toString()));
+                    filmData.modify(film);
                     filmData.close();
+
+                    Toast.makeText(EditFilmActivity.this,"Film edited",Toast.LENGTH_SHORT).show();
                     finish();
                 }
 
