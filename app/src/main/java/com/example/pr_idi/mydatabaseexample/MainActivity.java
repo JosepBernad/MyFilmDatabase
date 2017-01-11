@@ -78,9 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AlertDialog levelDialog;
     private int auxDialog = 0;
 
-    private AlertDialog deleteConfirm;
-    private int index2Delete;
-
     private int expandedPosition = -1;
 
 
@@ -106,8 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         filmData = new FilmData(this);
         filmData.open();
 
-        filmArray = new ArrayList<>(filmData.getFilmsThat(searchText.getText().toString(),searchBy));
-        sortArrayList();
+
 
 
         /** (+) Add button */
@@ -134,9 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void afterTextChanged(Editable s) {
-                filmArray = new ArrayList<>(filmData.getFilmsThat(searchText.getText().toString(),searchBy));
-                sortArrayList();
-                adapter = new FilmsAdapter(filmArray);
+                refreshAdapter();
                 recyclerView.setAdapter(adapter);
             }
         });
@@ -182,14 +176,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemLongClick(View view, int position) {
                 if(expandedPosition!=position){
-                    adapter = new FilmsAdapter(filmArray);
                     adapter.setExpandedPosition(position);
-                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                     expandedPosition = position;
                 }
                 else {
                     adapter.setExpandedPosition(-1);
-                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                     expandedPosition = -1;
                 }
 
@@ -199,13 +192,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new FilmsAdapter(filmArray);
-        adapter.setChangeExpandedPos(new FilmsAdapter.changeExpandedPositionInt() {
-            @Override
-            public void changeExpandedPosition(int newValue) {
-                setExpandedPosition(newValue);
-            }
-        });
+        refreshAdapter();
         recyclerView.setAdapter(adapter);
 
 
@@ -258,13 +245,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
 
         filmData.open();
-        filmArray = new ArrayList<>(filmData.getFilmsThat(searchText.getText().toString(),searchBy));
-        sortArrayList();
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new FilmsAdapter(filmArray);
+        refreshAdapter();
         recyclerView.setAdapter(adapter);
 
     }
@@ -352,8 +337,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onClick(DialogInterface dialog, int id) {
                     anInt = auxDialog;
                     sortBy = var[auxDialog];
-                    sortArrayList();
-                    adapter = new FilmsAdapter(filmArray);
+                    refreshAdapter();
                     recyclerView.setAdapter(adapter);
                     levelDialog.dismiss();
                 }
@@ -495,9 +479,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         searchText.setHint("Search by Actor...");
                         break;
                 }
-                filmArray = new ArrayList<>(filmData.getFilmsThat(searchText.getText().toString(),searchBy));
-                sortArrayList();
-                adapter = new FilmsAdapter(filmArray);
+                refreshAdapter();
                 recyclerView.setAdapter(adapter);
             }
             public void onNothingSelected(AdapterView<?> arg0) {}
@@ -512,7 +494,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    public void setExpandedPosition(int x){
+    public void refreshAdapter(){
+        filmArray = new ArrayList<>(filmData.getFilmsThat(searchText.getText().toString(),searchBy));
+        sortArrayList();
+        adapter = new FilmsAdapter(filmArray);
+        adapter.setChangeExpandedPos(new FilmsAdapter.changeExpandedPositionInt() {
+            @Override
+            public void changeExpandedPosition(int newValue) {
+                refreshAdapter();
+                //adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+                setExpandedPositionMain(newValue);
+            }
+        }
+        );
+    }
+
+    public void setExpandedPositionMain(int x){
         expandedPosition = x;
     }
 }

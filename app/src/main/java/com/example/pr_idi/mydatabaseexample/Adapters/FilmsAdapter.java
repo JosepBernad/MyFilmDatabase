@@ -53,6 +53,8 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.filmViewHold
         holder.directorYear.setText(aux);
         String aux2 = String.valueOf(filmArray.get(position).getCritics_rate());
         holder.rate.setText(aux2);
+        holder.ratingBar.setRating(Float.parseFloat(holder.rate.getText().toString())/2.0f);
+        holder.actualRateText.setText(String.valueOf(holder.rate.getText().toString()));
 
         if (position == expandedPosition) {
             holder.llExpandArea.setVisibility(View.VISIBLE);
@@ -87,14 +89,22 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.filmViewHold
             doneButton = (Button)itemView.findViewById(R.id.doneButton);
             deleteButton = (Button)itemView.findViewById(R.id.deleteButton);
             actualRateText = (TextView)itemView.findViewById(R.id.actualRateText);
-            ratingBar.setRating(Float.parseFloat(rate.getText().toString())/2.0f);
-            actualRateText.setText(String.valueOf(ratingBar.getRating()));
+            //ratingBar.setRating(Float.parseFloat(rate.getText().toString())/2.0f);
+            //actualRateText.setText(String.valueOf(rate.getText().toString()));
             listenersForExpanded();
         }
 
         public void listenersForExpanded() {
             //ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBarQEdit);
             //actualRateText = (TextView) itemView.findViewById(R.id.actualRateText);
+            origHolder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view){
+                    expandedPosition = -1;
+                    updateExpandedPos(-1);
+                    llExpandArea.setVisibility(View.GONE);
+                }
+            });
             doneButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view){
@@ -108,6 +118,7 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.filmViewHold
                     notifyItemChanged(expandedPosition);
                     expandedPosition = -1;
                     updateExpandedPos(-1);
+                    Toast.makeText(context, "Film Rate modified", Toast.LENGTH_SHORT).show();
                     llExpandArea.setVisibility(View.GONE);
                 }
             });
@@ -128,9 +139,7 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.filmViewHold
                             expandedPosition = -1;
                             updateExpandedPos(-1);
                             llExpandArea.setVisibility(View.GONE);
-                            //FilmsAdapter adapter = new FilmsAdapter(filmArray);
-                            //recyclerView.setAdapter(adapter);
-                            Toast.makeText(context, "Ja se borrar Pelis \\o/", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "The film has been deleted", Toast.LENGTH_SHORT).show();
                             deleteConfirm.dismiss();
                         }
                     }).setNegativeButton("No", new DialogInterface.OnClickListener() {

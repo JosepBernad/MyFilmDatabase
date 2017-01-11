@@ -184,6 +184,10 @@ public class EditFilmActivity extends AppCompatActivity
                 }
 
                 if (bTitle && bDirector && bCountry && bYear && bProtagonist) {
+                    if(title.getText().toString() != sTitle){
+                        Toast.makeText(EditFilmActivity.this,"Ha entraty",Toast.LENGTH_SHORT).show();
+                        filmData.setTitle(mId,title.getText().toString());
+                    }/*
                     filmData.deleteFilm(oldFilm);
                     Film film;
                     film = filmData.createFilm
@@ -195,6 +199,7 @@ public class EditFilmActivity extends AppCompatActivity
                                     protagonist.getText().toString().trim(),
                                     Integer.parseInt(rate.getText().toString())
                             );
+                            */
                     filmData.close();
                     finish();
                 }

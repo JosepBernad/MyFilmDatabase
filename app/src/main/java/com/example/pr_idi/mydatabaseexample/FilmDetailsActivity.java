@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pr_idi.mydatabaseexample.Class.Film;
+import com.example.pr_idi.mydatabaseexample.Class.FilmData;
 import com.google.android.gms.appindexing.AppIndex;
 
 /**
@@ -36,12 +38,24 @@ public class FilmDetailsActivity extends Activity
 
         //getSupportActionBar().setTitle("Film Details");
         mId = getIntent().getLongExtra("FILM_ID",0);
+        FilmData filmData = new FilmData(this);
+        filmData.open();
+        Film aux = filmData.getFilm(mId);
+        filmData.close();
+        sTitle = aux.getTitle();
+        sDirector = aux.getDirector();
+        sProtagonist = aux.getProtagonist();
+        sCountry = aux.getCountry();
+        iYear = aux.getYear();
+        iRate = aux.getCritics_rate();
+        /*
         sTitle = getIntent().getStringExtra("FILM_TITLE");
         sDirector = getIntent().getStringExtra("FILM_DIRECTOR");
         sProtagonist = getIntent().getStringExtra("FILM_ACTOR");
         sCountry = getIntent().getStringExtra("FILM_COUNTRY");
         iYear = getIntent().getIntExtra("FILM_YEAR",2000);
         iRate = getIntent().getIntExtra("FILM_RATE", 5);
+        */
 
         title = (TextView)findViewById(R.id.titleTextView);
         director = (TextView)findViewById(R.id.directorTextView);

@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.MySQLiteHelper;
 
@@ -21,6 +22,7 @@ public class FilmData {
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
+    private Context contextI;
 
     // Here we only select Title and Director, must select the appropriate columns
     private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
@@ -30,6 +32,7 @@ public class FilmData {
 
     public FilmData(Context context) {
         dbHelper = new MySQLiteHelper(context);
+        contextI = context;
     }
 
     public void open() throws SQLException {
@@ -165,6 +168,17 @@ public class FilmData {
         film.setCritics_rate(cursor.getInt(6));
         return film;
     }
+    public Film getFilm(long id){
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS,
+                allColumns, MySQLiteHelper.COLUMN_ID+"='"+ id + "'", null, null, null,null);
+        cursor.moveToFirst();
+        return cursorToFilm(cursor);
+    }
 
+    public void setTitle(long id, String title){
+        Toast.makeText(contextI,"Ha entraty",Toast.LENGTH_SHORT).show();
+        String sql="update "+MySQLiteHelper.TABLE_FILMS+" set availability='"+title+"' where "+MySQLiteHelper.COLUMN_ID+"='"+id+"'";
+        database.execSQL(sql, null);
+    }
 
 }
