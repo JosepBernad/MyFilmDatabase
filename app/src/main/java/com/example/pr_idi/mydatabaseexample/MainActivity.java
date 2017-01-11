@@ -252,14 +252,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                     case 2: //cas Add Film
                         filmData.close();
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                         Intent i = new Intent(MainActivity.this, NewFilmActivity.class);
                         startActivity(i);
                         break;
                     case 3: //cas Help
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                         Toast.makeText(MainActivity.this, "Help encara s'ha de implementar XD", Toast.LENGTH_SHORT).show();
                         break;
                     case 4: //cas About
-                        Toast.makeText(MainActivity.this, "About encara s'ha de implementar XD", Toast.LENGTH_SHORT).show();
+                        filmData.close();
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                        startActivity(intent);
                         break;
                 }
             }
@@ -273,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             /** Es crida quan el drawer esta completament obert */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Options");
+                getSupportActionBar().setTitle("Menu");
                 invalidateOptionsMenu();
             }
 

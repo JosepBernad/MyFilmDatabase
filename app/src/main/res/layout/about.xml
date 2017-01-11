@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout_about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <TextView
+            android:text="Aquest es el text que hi ha en el about de la nostra practica, aquest text ha de ser molt llarg i per aixo encara estic escrivint..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="164dp"
+            android:id="@+id/aboutText"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+    </RelativeLayout>
+
+    <!-- The navigation drawer -->
+    <ListView android:id="@+id/navListAbout"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:background="#ffeeeeee"/>
+</android.support.v4.widget.DrawerLayout>
