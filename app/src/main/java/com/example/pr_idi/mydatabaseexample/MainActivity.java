@@ -4,7 +4,9 @@ package com.example.pr_idi.mydatabaseexample;
 import java.util.ArrayList;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -97,10 +99,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         searchBy = 0;
         getSupportActionBar().setTitle("My Films");
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(!prefs.getBoolean("firstTime", false)) {
+            // run your one time code
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("firstTime", true);
+            editor.commit();
+        }
 
         filmData = new FilmData(this);
         filmData.open();
-
+        onlyFirstTime();
 
 
 
@@ -488,5 +497,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void setExpandedPositionMain(int x){
         expandedPosition = x;
+    }
+
+    private void onlyFirstTime(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(!prefs.getBoolean("firstTime", false)) {
+
+            filmData.createFilm("Memento","Christofer Noland","USA",2000,"Guy Pearce",9);
+            filmData.createFilm("Gran Torino", "Clint Eastwood", "USA", 2008, "Clint Eastwood",8);
+            filmData.createFilm("Amélie","Jean-Pierre Jeunet", "France", 2001, "Audrey Tautou",8);
+            filmData.createFilm("Spanish Movie", "Javier Ruiz Caldera", "Spain", 2009, "Alexandra Jiménez",4);
+
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("firstTime", true);
+            editor.commit();
+        }
     }
 }
