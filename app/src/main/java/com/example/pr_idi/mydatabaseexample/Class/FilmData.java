@@ -13,7 +13,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.MySQLiteHelper;
 
@@ -22,7 +21,6 @@ public class FilmData {
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private Context contextI;
 
     // Here we only select Title and Director, must select the appropriate columns
     private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
@@ -32,7 +30,6 @@ public class FilmData {
 
     public FilmData(Context context) {
         dbHelper = new MySQLiteHelper(context);
-        contextI = context;
     }
 
     public void open() throws SQLException {
@@ -87,25 +84,6 @@ public class FilmData {
         System.out.println("Film deleted with id: " + id);
         database.delete(MySQLiteHelper.TABLE_FILMS, MySQLiteHelper.COLUMN_ID
                 + " = " + id, null);
-    }
-
-    public List<Film> getAllFilms() {
-        List<Film> comments = new ArrayList<>();
-
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS,
-                allColumns, null, null, null, null,MySQLiteHelper.COLUMN_TITLE);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Film comment = cursorToFilm(cursor);
-            comments.add(comment);
-            cursor.moveToNext();
-        }
-
-
-        // make sure to close the cursor
-        cursor.close();
-        return comments;
     }
 
     public List<Film> getFilmsThat(String searchTerm, int searchBy)

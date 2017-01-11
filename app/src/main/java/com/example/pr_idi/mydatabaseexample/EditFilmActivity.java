@@ -1,14 +1,10 @@
 package com.example.pr_idi.mydatabaseexample;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +14,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pr_idi.mydatabaseexample.Adapters.FilmsAdapter;
 import com.example.pr_idi.mydatabaseexample.Class.Film;
 import com.example.pr_idi.mydatabaseexample.Class.FilmData;
 
@@ -39,7 +34,7 @@ public class EditFilmActivity extends AppCompatActivity
     int iYear, iRate;
     long mId;
 
-    Film oldFilm, newFilm;
+    Film oldFilm;
 
 
 

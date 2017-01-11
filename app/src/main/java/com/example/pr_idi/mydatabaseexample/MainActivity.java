@@ -29,7 +29,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.Adapters.SpinnerAdapter;
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    private ArrayAdapter<String> mAdapter;
 
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -111,10 +109,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addButton.setOnClickListener(this);
 
 
-        /** Sort button
-        FloatingActionButton sortButton = (FloatingActionButton) findViewById(R.id.sortButton);
-        sortButton.setOnClickListener(this);
-        */
 
         /** Search by spinner */
         setupSpinner();
@@ -142,13 +136,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         var[2] = "year";
         var[3] = "rate";
 
-        /**
-         // use the SimpleCursorAdapter to show the
-         // elements in a ListView
-         ArrayAdapter<Film> adapter = new ArrayAdapter<>(this,
-         android.R.layout.simple_list_item_1, values);
-         setListAdapter(adapter); */
-
 
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         /** Recycler View Clickable */
@@ -173,11 +160,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     adapter.setExpandedPosition(position);
                     adapter.notifyDataSetChanged();
                     expandedPosition = position;
-                }
-                else {
-                    adapter.setExpandedPosition(-1);
-                    adapter.notifyDataSetChanged();
-                    expandedPosition = -1;
                 }
 
             }
@@ -219,9 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // of the buttons in main.xml
 
     public void onClick(View view) {
-        @SuppressWarnings("unchecked")
-        ArrayAdapter<Film> adapter = (ArrayAdapter<Film>) mainListView.getAdapter();
-        Film film;
+
         switch (view.getId())
         {
             case R.id.addButton:
@@ -257,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void addDrawerItems() {
         String[] filmArray = {"My Films", "Add Film", "Help", "About"};
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, filmArray);
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, filmArray);
         mDrawerList.setAdapter(mAdapter);
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

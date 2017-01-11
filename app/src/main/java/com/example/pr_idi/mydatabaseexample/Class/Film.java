@@ -19,7 +19,6 @@ public class Film {
     private String protagonist;
     private int critics_rate;
 
-    private String comment;
 
 
     /** ID */

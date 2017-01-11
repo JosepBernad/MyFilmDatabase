@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.Class.Film;
 import com.example.pr_idi.mydatabaseexample.Class.FilmData;
-import com.example.pr_idi.mydatabaseexample.MainActivity;
 import com.example.pr_idi.mydatabaseexample.R;
 
 import java.util.ArrayList;
@@ -172,7 +169,7 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsAdapter.filmViewHold
         expandedPosition = expandI;
         notifyItemChanged(expandedPosition);
     }
-    public void updateExpandedPos(int x){
+    private void updateExpandedPos(int x){
         if (mChangePos != null) {
             mChangePos.changeExpandedPosition(x);
         }
