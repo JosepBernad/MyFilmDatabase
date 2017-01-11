@@ -10,8 +10,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter adapter;
+    private FilmsAdapter adapter;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -79,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AlertDialog deleteConfirm;
     private int index2Delete;
 
+    private int expandedPosition = -1;
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -91,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(main);
+        expandedPosition = -1;
         mainListView = (ListView) findViewById(R.id.my_list);
         searchText = (EditText) findViewById(R.id.searchText);
         dropdown = (Spinner)findViewById(R.id.my_spinner);
@@ -153,49 +158,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         /** Recycler View Clickable */
+
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                filmData.close();
-                Intent i = new Intent(MainActivity.this, FilmDetailsActivity.class);
+                //expandedPosition = adapter.getExpandedPosition();
+                if(expandedPosition != position) {
+                    filmData.close();
+                    Intent i = new Intent(MainActivity.this, FilmDetailsActivity.class);
 
-                i.putExtra("FILM_ID", filmArray.get(position).getId());
-                i.putExtra("FILM_TITLE", filmArray.get(position).getTitle());
-                i.putExtra("FILM_DIRECTOR", filmArray.get(position).getDirector());
-                i.putExtra("FILM_COUNTRY", filmArray.get(position).getCountry());
-                i.putExtra("FILM_YEAR", filmArray.get(position).getYear());
-                i.putExtra("FILM_ACTOR", filmArray.get(position).getProtagonist());
-                i.putExtra("FILM_RATE", filmArray.get(position).getCritics_rate());
+                    i.putExtra("FILM_ID", filmArray.get(position).getId());
+                    i.putExtra("FILM_TITLE", filmArray.get(position).getTitle());
+                    i.putExtra("FILM_DIRECTOR", filmArray.get(position).getDirector());
+                    i.putExtra("FILM_COUNTRY", filmArray.get(position).getCountry());
+                    i.putExtra("FILM_YEAR", filmArray.get(position).getYear());
+                    i.putExtra("FILM_ACTOR", filmArray.get(position).getProtagonist());
+                    i.putExtra("FILM_RATE", filmArray.get(position).getCritics_rate());
 
-                startActivity(i);
+                    startActivity(i);
+                }
             }
 
             @Override
-            public void onItemLongClick(View view, int position)
-            {
-                index2Delete = position;
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Do you want to delete this film?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        filmData.deleteFilm(filmArray.get(index2Delete));
-                        filmArray.remove(index2Delete);
-                        FilmsAdapter adapter = new FilmsAdapter(filmArray);
-                        recyclerView.setAdapter(adapter);
-                        Toast.makeText(MainActivity.this, "Ja se borrar Pelis \\o/", Toast.LENGTH_SHORT).show();
-                        deleteConfirm.dismiss();
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        deleteConfirm.dismiss();
-                    }
-                });
-                deleteConfirm = builder.create();
-                deleteConfirm.show();
+            public void onItemLongClick(View view, int position) {
+                if(expandedPosition!=position){
+                    adapter = new FilmsAdapter(filmArray);
+                    adapter.setExpandedPosition(position);
+                    recyclerView.setAdapter(adapter);
+                    expandedPosition = position;
+                }
+                else {
+                    adapter.setExpandedPosition(-1);
+                    recyclerView.setAdapter(adapter);
+                    expandedPosition = -1;
+                }
+
             }
         }));
 
@@ -203,6 +200,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new FilmsAdapter(filmArray);
+        adapter.setChangeExpandedPos(new FilmsAdapter.changeExpandedPositionInt() {
+            @Override
+            public void changeExpandedPosition(int newValue) {
+                setExpandedPosition(newValue);
+            }
+        });
         recyclerView.setAdapter(adapter);
 
 
@@ -215,6 +218,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //mActivityTitle = getTitle().toString();
 
         mDrawerList = (ListView) findViewById(R.id.navList);
+        LayoutInflater myinflater = getLayoutInflater();
+        ViewGroup myHeader = (ViewGroup)myinflater.inflate(R.layout.headerlayout, mDrawerList, false);
+        mDrawerList.addHeaderView(myHeader, null, false);
         addDrawerItems();
 
         setupDrawer();
@@ -243,27 +249,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
 
-            /*
-            case R.id.sortButton:
-
-                sortBy = var[anInt];
-
-                sortArrayList();
-
-                ++anInt;
-                if (anInt == 4)
-                    anInt = 0;
-
-
-                recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-                layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                recyclerView.setLayoutManager(layoutManager);
-
-                FilmsAdapter adapter1 = new FilmsAdapter(filmArray);
-                recyclerView.setAdapter(adapter1);
-
-                break;
-                */
         }
 
     }
@@ -292,25 +277,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void addDrawerItems() {
-        String[] filmArray = {"Add Film", "Delete Film", "Help", "About"};
+        String[] filmArray = {"My Films", "Add Film", "Help", "About"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, filmArray);
         mDrawerList.setAdapter(mAdapter);
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
-                    case 0: //cas Add Film
+                    case 1:
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 2: //cas Add Film
                         filmData.close();
                         Intent i = new Intent(MainActivity.this, NewFilmActivity.class);
                         startActivity(i);
                         break;
-                    case 1: //cas Delete Film
-                        Toast.makeText(MainActivity.this, "No se borrar pelis OK?", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2: //cas Help
+                    case 3: //cas Help
                         Toast.makeText(MainActivity.this, "Help encara s'ha de implementar XD", Toast.LENGTH_SHORT).show();
                         break;
-                    case 3: //cas About
+                    case 4: //cas About
                         Toast.makeText(MainActivity.this, "About encara s'ha de implementar XD", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -368,8 +353,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     anInt = auxDialog;
                     sortBy = var[auxDialog];
                     sortArrayList();
-                    FilmsAdapter adapter1 = new FilmsAdapter(filmArray);
-                    recyclerView.setAdapter(adapter1);
+                    adapter = new FilmsAdapter(filmArray);
+                    recyclerView.setAdapter(adapter);
                     levelDialog.dismiss();
                 }
             }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -525,5 +510,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    public void setExpandedPosition(int x){
+        expandedPosition = x;
     }
 }
