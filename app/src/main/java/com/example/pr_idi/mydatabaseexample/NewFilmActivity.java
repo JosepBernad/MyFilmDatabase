@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.Class.Film;
 import com.example.pr_idi.mydatabaseexample.Class.FilmData;
@@ -125,6 +126,7 @@ public class NewFilmActivity extends AppCompatActivity {
                                     Integer.parseInt(ratingText.getText().toString())
                             );
                     filmData.close();
+                    Toast.makeText(NewFilmActivity.this,"Film has been created",Toast.LENGTH_SHORT).show();
                     finish();
                 }
 

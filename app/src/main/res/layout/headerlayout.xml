@@ -7,7 +7,8 @@
         android:layout_width="240dp"
         android:layout_height="150dp"
         android:src="@drawable/ic_navi"
-        android:background="@color/launcherBlue"/>
+        android:background="@color/launcherBlue"
+        />
 
 
 </RelativeLayout>

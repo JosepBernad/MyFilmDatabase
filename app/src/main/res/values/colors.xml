@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#233abc</color>
-    <color name="colorPrimaryDark">#213ef4</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#000000</color>
 
     <color name="addButton">#F580A4</color>
 
-    <color name="filmTitle">#2c7cfa</color>
+    <color name="filmTitle">#2196F3</color>
     <color name="launcherBlue">#0d75dd</color>
 
 </resources>

@@ -4,14 +4,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    s
+
     <LinearLayout
         android:id="@+id/linear_title"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="98dp"
-        android:background="#0055FF"
-        android:layout_alignParentTop="true">
+        android:layout_height="wrap_content"
+        android:background="#2196F3"
+        android:layout_alignParentTop="true"
+        android:elevation="5dp">
 
         <TextView
             android:text="Piratas del Caribe"
@@ -24,30 +25,30 @@
             android:textColor="#FFFFFF"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
+            android:textStyle="bold"
             />
 
     </LinearLayout>
-
-
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linear_title"
+        android:paddingStart="10dp"
+        android:paddingTop="10dp"
         >
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_film_details"
             >
 
+            <!-- Director -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="25dp"
                 android:layout_marginStart="12dp">
 
                 <ImageView
@@ -71,58 +72,63 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="12dp">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_year"
-                    android:id="@+id/yearImageView"
-                    />
-
-                <!--
-                android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    -->
-
-                <TextView
-                    android:text="TextView"
+                <!-- Year -->
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:id="@+id/yearTextView"
-                    android:textSize="25sp"
-                    android:paddingStart="10dp"/>
+                    android:layout_height="50dp"
+                    android:layout_marginStart="12dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_year"
+                        android:id="@+id/yearImageView"
+                        />
+
+
+                    <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:id="@+id/yearTextView"
+                        android:textSize="25sp"
+                        android:paddingStart="10dp"/>
+
+                </LinearLayout>
+
+
+                <!-- Country -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_place"
+                        android:id="@+id/placeImageView" />
+
+                    <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:id="@+id/placeTextView"
+                        android:textSize="25sp"
+                        android:paddingStart="10dp"
+                        />
+                </LinearLayout>
+
 
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="12dp">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_place"
-                    android:id="@+id/placeImageView" />
-
-                <TextView
-                    android:text="TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:id="@+id/placeTextView"
-                    android:textSize="25sp"
-                    android:paddingStart="10dp"
-                    />
-
-            </LinearLayout>
-
+            <!-- Protagonist -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -147,6 +153,7 @@
 
             </LinearLayout>
 
+            <!-- Rating -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -171,8 +178,6 @@
 
             </LinearLayout>
 
-
-
         </LinearLayout>
 
     </ScrollView>
@@ -185,7 +190,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        app:backgroundTint="#66FF11"
+        app:backgroundTint="#4CAF50"
         android:src="@drawable/ic_edit_button"/>
 
 </RelativeLayout>

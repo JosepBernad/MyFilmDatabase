@@ -107,7 +107,9 @@
             android:numStars="5"
             android:layout_gravity="center"
             android:stepSize="0.5"
-            android:rating="2.5"/>
+            android:rating="2.5"
+            android:theme="@style/RatingBar"
+            />
 
         <Button
             android:id="@+id/submitButton_new"
