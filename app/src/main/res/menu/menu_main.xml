@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/sortAction"
-        android:icon="@drawable/ic_sort_icon"
+        android:icon="@drawable/ic_sort_az"
         android:title="Text to be seen by user"
         app:showAsAction="always"
         android:orderInCategory="0"/>

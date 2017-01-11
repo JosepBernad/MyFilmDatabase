@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -248,6 +249,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String[] filmArray = {"My Films", "Add Film", "Help", "About"};
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, filmArray);
         mDrawerList.setAdapter(mAdapter);
+
+
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -451,6 +454,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (position){
                     case 0:
                         searchText.setHint("Search by Title...");
+
                         break;
                     case 1:
                         searchText.setHint("Search by Director...");
@@ -514,4 +518,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.commit();
         }
     }
+
+
 }
