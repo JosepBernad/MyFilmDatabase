@@ -115,8 +115,7 @@ public class NewFilmActivity extends AppCompatActivity {
                 }
 
                 if (title && director && country && year && protagonist) {
-                    Film film;
-                    film = filmData.createFilm
+                    filmData.createFilm
                             (
                                     titleText.getText().toString().trim(),
                                     directorText.getText().toString().trim(),

@@ -13,7 +13,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.MySQLiteHelper;
 
@@ -22,7 +21,6 @@ public class FilmData {
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private Context contextI;
 
     // Here we only select Title and Director, must select the appropriate columns
     private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
@@ -32,7 +30,6 @@ public class FilmData {
 
     public FilmData(Context context) {
         dbHelper = new MySQLiteHelper(context);
-        contextI = context;
     }
 
     public void open() throws SQLException {
@@ -87,25 +84,6 @@ public class FilmData {
         System.out.println("Film deleted with id: " + id);
         database.delete(MySQLiteHelper.TABLE_FILMS, MySQLiteHelper.COLUMN_ID
                 + " = " + id, null);
-    }
-
-    public List<Film> getAllFilms() {
-        List<Film> comments = new ArrayList<>();
-
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS,
-                allColumns, null, null, null, null,MySQLiteHelper.COLUMN_TITLE);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Film comment = cursorToFilm(cursor);
-            comments.add(comment);
-            cursor.moveToNext();
-        }
-
-
-        // make sure to close the cursor
-        cursor.close();
-        return comments;
     }
 
     public List<Film> getFilmsThat(String searchTerm, int searchBy)
@@ -176,10 +154,16 @@ public class FilmData {
         return cursorToFilm(cursor);
     }
 
-    public void setTitle(long id, String title){
-        Toast.makeText(contextI,"Ha entraty",Toast.LENGTH_SHORT).show();
-        String sql="update "+MySQLiteHelper.TABLE_FILMS+" set availability='"+title+"' where "+MySQLiteHelper.COLUMN_ID+"='"+id+"'";
-        database.execSQL(sql, null);
+    public void modify(Film film){
+        long id=film.getId();
+        ContentValues cv = new ContentValues();
+        cv.put(MySQLiteHelper.COLUMN_TITLE,film.getTitle());
+        cv.put(MySQLiteHelper.COLUMN_DIRECTOR,film.getDirector());
+        cv.put(MySQLiteHelper.COLUMN_COUNTRY,film.getCountry());
+        cv.put(MySQLiteHelper.COLUMN_YEAR_RELEASE,film.getYear());
+        cv.put(MySQLiteHelper.COLUMN_PROTAGONIST,film.getProtagonist());
+        cv.put(MySQLiteHelper.COLUMN_CRITICS_RATE,film.getCritics_rate());
+        database.update(MySQLiteHelper.TABLE_FILMS,cv,"_id='"+String.valueOf(id)+"'",null);
     }
 
 }
