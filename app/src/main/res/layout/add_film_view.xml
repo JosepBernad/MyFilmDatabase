@@ -23,7 +23,7 @@
         android:ems="10"
         android:layout_weight="0.05"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"/>
 
@@ -93,7 +93,7 @@
             android:text = "5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="17dp"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:layout_weight="0.05"
@@ -114,10 +114,13 @@
         <Button
             android:id="@+id/submitButton_new"
             android:text="Submit"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.05" />
+            android:layout_weight="0.05"
+            android:layout_gravity="center"/>
 
 
     </LinearLayout>
