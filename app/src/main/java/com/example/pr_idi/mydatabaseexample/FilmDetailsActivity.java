@@ -2,6 +2,7 @@ package com.example.pr_idi.mydatabaseexample;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
@@ -58,6 +59,7 @@ public class FilmDetailsActivity extends Activity
         protagonist.setText(sProtagonist);
         rate.setText(String.valueOf(iRate));
 
+        title.setShadowLayer(20, 0, 0, Color.BLACK);
 
         listenerForEditButton();
 

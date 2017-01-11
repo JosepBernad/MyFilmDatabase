@@ -8,15 +8,96 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent" android:layout_height="match_parent">
 
-        <TextView
-            android:text="Aquest es el text que hi ha en el about de la nostra practica, aquest text ha de ser molt llarg i per aixo encara estic escrivint..."
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="164dp"
-            android:id="@+id/aboutText"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Icon and info -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="50dp"
+                    android:paddingStart="15dp">
+
+                    <!-- Image -->
+                    <ImageView
+                        android:layout_width="170dp"
+                        android:layout_height="170dp"
+                        android:src="@drawable/film_icon"/>
+
+                    <!-- Right (text) -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="25dp">
+
+                        <!-- MyFilms -->
+                        <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="MyFilm"
+                        android:textColor="#000000"
+                        android:textSize="30sp"
+                        android:textStyle="bold"/>
+
+                        <!-- Version -->
+                        <TextView
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Version 1.0"
+                            android:textSize="15sp"/>
+
+                        <!-- RogerJosep -->
+                        <TextView
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Roger Pujol \nJosep Bernad"
+                            android:textSize="15sp"/>
+
+                        <!-- FIB-UPC -->
+                        <TextView
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="And033 - P1 (Grup 20)"
+                            android:textSize="15sp"/>
+
+                        <!-- FIB-UPC -->
+                        <TextView
+                            android:paddingTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="FIB - UPC (Q1 2016/17)"
+                            android:textSize="15sp"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="40dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
     </RelativeLayout>
 
     <!-- The navigation drawer -->
