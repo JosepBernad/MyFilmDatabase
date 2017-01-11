@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -117,6 +118,10 @@ public class EditFilmActivity extends AppCompatActivity
                     /**
                      * TODO: Return to the MainActivity
                      */
+                    Intent intent = new Intent(EditFilmActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+
                 }
             }).setNegativeButton("No", new DialogInterface.OnClickListener()
             {

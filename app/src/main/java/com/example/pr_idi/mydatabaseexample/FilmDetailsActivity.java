@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,6 +27,7 @@ public class FilmDetailsActivity extends Activity
     String sTitle, sDirector, sProtagonist, sCountry;
     int iYear, iRate;
     long mId;
+    FilmData filmData;
 
     FloatingActionButton editButton;
 
@@ -38,10 +40,10 @@ public class FilmDetailsActivity extends Activity
 
         //getSupportActionBar().setTitle("Film Details");
         mId = getIntent().getLongExtra("FILM_ID",0);
-        FilmData filmData = new FilmData(this);
+        filmData = new FilmData(FilmDetailsActivity.this);
         filmData.open();
         Film aux = filmData.getFilm(mId);
-        filmData.close();
+        //filmData.close();
         sTitle = aux.getTitle();
         sDirector = aux.getDirector();
         sProtagonist = aux.getProtagonist();
@@ -81,10 +83,11 @@ public class FilmDetailsActivity extends Activity
 
     }
 
+
     @Override
     public void onStop() {
         super.onStop();
-
+        filmData.close();
     }
 
     public void listenerForEditButton()

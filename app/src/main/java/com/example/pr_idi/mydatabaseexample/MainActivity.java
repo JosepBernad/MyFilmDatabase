@@ -494,7 +494,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    public void refreshAdapter(){
+    public void refreshAdapter()
+    {
+        filmData.open();
         filmArray = new ArrayList<>(filmData.getFilmsThat(searchText.getText().toString(),searchBy));
         sortArrayList();
         adapter = new FilmsAdapter(filmArray);

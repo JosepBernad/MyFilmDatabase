@@ -108,7 +108,8 @@ public class FilmData {
         return comments;
     }
 
-    public List<Film> getFilmsThat(String searchTerm, int searchBy) {
+    public List<Film> getFilmsThat(String searchTerm, int searchBy)
+    {
         List<Film> comments = new ArrayList<>();
         Cursor cursor;
         if(searchTerm != null && searchTerm.length()>0) {
