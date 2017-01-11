@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * Created by roger on 11/01/17.
@@ -23,6 +26,9 @@ public class HelpActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+    private Button prevButton, nextButton;
+    private ImageView imageView;
+    private int actualImage;
 
 
 
@@ -34,6 +40,11 @@ public class HelpActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Help");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        actualImage=0;
+
+        prevButton = (Button) findViewById(R.id.prevButton);
+        nextButton = (Button) findViewById(R.id.nextButton);
+        imageView = (ImageView) findViewById(R.id.imageView);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_help);
 
@@ -42,10 +53,35 @@ public class HelpActivity extends AppCompatActivity {
         ViewGroup myHeader = (ViewGroup)myinflater.inflate(R.layout.headerlayout, mDrawerList, false);
         mDrawerList.addHeaderView(myHeader, null, false);
         addDrawerItems();
-
         setupDrawer();
 
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(actualImage==0){
+                    Toast.makeText(HelpActivity.this,"This is the first image",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    --actualImage;
+                    changeImage();
+                }
+            }
+        });
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(actualImage==6){
+                    Toast.makeText(HelpActivity.this,"This is the last image",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    ++actualImage;
+                    changeImage();
+                }
+            }
+        });
     }
+
     private void addDrawerItems() {
         String[] filmArray = {"My Films", "Add Film", "Help", "About"};
         ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, filmArray);
@@ -131,6 +167,33 @@ public class HelpActivity extends AppCompatActivity {
             this.mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+    private void changeImage(){
+        switch(actualImage){
+            case 0:
+                imageView.setImageResource(R.drawable.im_help1);
+                break;
+            case 1:
+                imageView.setImageResource(R.drawable.im_help2);
+                break;
+            case 2:
+                imageView.setImageResource(R.drawable.im_help3);
+                break;
+            case 3:
+                imageView.setImageResource(R.drawable.im_help4);
+                break;
+            case 4:
+                imageView.setImageResource(R.drawable.im_help5);
+                break;
+            case 5:
+                imageView.setImageResource(R.drawable.im_help6);
+                break;
+            case 6:
+                imageView.setImageResource(R.drawable.im_help7);
+                break;
+            default:
+                imageView.setImageResource(R.drawable.im_help1);
         }
     }
 }
