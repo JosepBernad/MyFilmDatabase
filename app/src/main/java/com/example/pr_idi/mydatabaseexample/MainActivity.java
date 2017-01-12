@@ -48,6 +48,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.util.Collections;
 import java.util.Comparator;
 
+import static android.text.InputType.TYPE_CLASS_NUMBER;
+import static android.text.InputType.TYPE_CLASS_TEXT;
 import static com.example.pr_idi.mydatabaseexample.R.layout.main;
 
 
@@ -455,16 +457,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (position){
                     case 0:
                         searchText.setHint("Search by Title...");
-
+                        searchText.setInputType(TYPE_CLASS_TEXT);
                         break;
                     case 1:
                         searchText.setHint("Search by Director...");
+                        searchText.setInputType(TYPE_CLASS_TEXT);
                         break;
                     case 2:
                         searchText.setHint("Search by Year...");
+                        searchText.setInputType(TYPE_CLASS_NUMBER);
                         break;
                     case 3:
                         searchText.setHint("Search by Actor...");
+                        searchText.setInputType(TYPE_CLASS_TEXT);
                         break;
                 }
                 refreshAdapter();

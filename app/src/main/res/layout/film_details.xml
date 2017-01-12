@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#2196F3"
         android:layout_alignParentTop="true"
-        android:elevation="5dp">
+        android:elevation="6dp">
 
         <TextView
             android:text="Piratas del Caribe"
